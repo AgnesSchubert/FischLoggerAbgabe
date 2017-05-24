@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/fishviewer_context_edit"
+        android:title="@string/menu.context.fishviewer.edit" />
+
+    <item android:id="@+id/fishviewer_context_delete"
+        android:title="@string/menu.context.fishviewer.delete" />
+
+    <item android:id="@+id/fishviewer_context_new"
+        android:title="@string/menu.context.fishviewer.new" />
+
+</menu>

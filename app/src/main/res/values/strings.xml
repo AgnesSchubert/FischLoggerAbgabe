@@ -1,0 +1,88 @@
+<resources>
+
+
+    <string name="hello_world">Hallo Welt!</string>
+
+    <!-- allgemeine String-Konstanten -->
+    <string name="app_name">FischLogger</string>
+
+    <string name="antwort.ja">ja</string>
+    <string name="antwort.nein">nein</string>
+    <string name="antwort.ok">OK</string>
+    <string name="antwort.abbrechen">Abbrechen</string>
+    <string name="action.aendern">ändern</string>
+    <string name="keine">nirgends</string>
+
+    <!-- Menü-Einträge -->
+    <string name="menu.einstellungen">Einstellungen</string>
+    <string name="menu.neueLeerung">neue Leerung</string>
+    <string name="menu.anleitung">Anleitung (de)</string>
+    <string name="menu.fishviewer">Fish Viewer</string>
+    <string name="menu.editFish">Neue Beobachtung</string>
+    <string name="menu.newSite">neue Probestelle</string>
+    <string name="menu.context.fishviewer.delete">löschen</string>
+    <string name="menu.context.fishviewer.new">neu</string>
+    <string name="menu.context.fishviewer.edit">bearbeiten</string>
+
+    <!-- Hauptbildschirm -->
+    <string name="main.willkommen">Willkommen!</string>
+    <string name="main.info">Diese Anwendung unterstützt Sie bei der
+        Erfassung von Daten zu Fischschäden im Rahmen von Fischabstiegsuntersuchungen!</string>
+
+    <!-- Activity-Titel -->
+    <string name="titel.newsite">neue Probestelle anlegen</string>
+    <string name="titel.fishviewer">Fisch-Liste</string>
+    <string name="titel.editfish">Fisch bearbeiten</string>
+
+    <!-- newSite -->
+    <string name="site.ort">Ort</string>
+    <string name="site.fluss">Gewässer</string>
+    <string name="site.arten">erwartete\n Fischarten</string>
+    <string name="site.name">Name</string>
+
+    <!-- editFish -->
+    <string name="fisch.art">Art</string>
+    <string name="fisch.laenge">Länge</string>
+    <string name="fisch.breite">Breite</string>
+    <string name="fisch.hoehe">Höhe</string>
+    <string name="fisch.schaden">Schäden</string>
+    <string name="fisch.action.schaden">Schäden eintragen</string>
+
+
+    <!-- Fischschäden -->
+    <string name="schaden.einseitig">einseitig</string>
+    <string name="schaden.beidseitig">beidseitig</string>
+    <string name="schaden.verpilzt">verpilzt</string>
+    <string name="schaden.koerperstelle">wo?</string>
+    <string name="schaden.koerperstelle.betroffen">betroffene Körperstellen</string>
+    <string name="schaden.bpa">Blutpunkt im Auge</string>
+    <string name="schaden.sv">Schuppenverlust</string>
+    <string name="schaden.haematom">Hämatom</string>
+    <string name="schaden.schuerfung">Schürfung</string>
+    <string name="schaden.ow">offene Wunde,\n Fleischwunde</string>
+    <string name="schaden.ta">Teilamputation</string>
+    <string name="schaden.amputation">Amputation</string>
+    <string name="schaden.durchtrennung">Totaldurchtrennung</string>
+    <string name="schaden.verpilzung">komplette Verpilzung</string>
+    <string name="schaden.bemerkung">Bemerkung</string>
+
+    <!-- Körperstellen -->
+    <string name="koerper.flosse.bauch">Bauchflosse</string>
+    <string name="koerper.flosse.brust">Brustflosse</string>
+    <string name="koerper.flosse.ruecken">Rückenflosse</string>
+    <string name="koerper.flosse.after">Afterflosse</string>
+    <string name="koerper.flosse.schwanz">Schwanzflosse</string>
+    <string name="koerper.flosse.fett">Fettflosse</string>
+    <string name="koerper.teil.kopf">Kopf</string>
+    <string name="koerper.teil.maul">Maul</string>
+    <string name="koerper.teil.ruecken">Rücken</string>
+    <string name="koerper.teil.bauch">Bauch</string>
+    <string name="koerper.teil.seitelinks">linke Seite</string>
+    <string name="koerper.teil.seiterechts">rechte Seite</string>
+    <string name="koerper.teil.seitebeide">beide Seiten</string>
+
+    <!-- Fischarten -->
+
+
+
+</resources>
