@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,8 +29,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class FishViewerFragment extends Fragment {
+
+    public static final String LOG_TAG = FishViewerFragment.class.getSimpleName();
+    private FishDataSource dataSource;
 
     public FishViewerFragment(){
     }
@@ -60,29 +63,29 @@ public class FishViewerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String [] fischlisteArray = {
-                "Bachforelle 23",
-                "Flussbarsch 17",
-                "Bachforelle 9",
-                "Groppe 11",
-                "Gründling 13",
-                "Bachforelle 45",
-                "Plötze 12",
-                "Blaubandbärbling 7",
-                "Blaubandbärbling 6"
-        };
-        List <String> fischListe = new ArrayList<>(Arrays.asList(fischlisteArray));
-        ArrayAdapter <String> fischlisteAdapter =
-                new ArrayAdapter<>(
-                        getActivity(), // Die aktuelle Umgebung (FishViewerActivity)
-                        R.layout.list_item_fisch, // XML-Layout Datei
-                        R.id.list_item_fisch_textview, // TextViews
-                        fischListe); // ArrayList (Beispiel-Fisch-Daten)
         View rootView = inflater.inflate(R.layout.fragment_fishviewer, container, false);
-
         final ListView fishViewerListView = (ListView) rootView.findViewById(R.id.listview_fische);
         registerForContextMenu(fishViewerListView);
-        fishViewerListView.setAdapter(fischlisteAdapter);
+
+        java.util.Date datum = new java.util.Date();
+        Fish testFisch = new Fish("Bachforelle", 12.5, Seite.NONE, Seite.ONE,false,"",true,"Bauch",false,false,"",false,true,"Schwanzflosse",false,false,"Dies ist ein Test.",datum.getTime(),1);
+        Log.d(LOG_TAG, "Inhalt der Testmemo: " + testFisch.toString());
+
+        dataSource = new FishDataSource(getContext());
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
+        dataSource.open();
+
+        Fish fish = dataSource.createFish("Bachforelle", 12.5, Seite.BOTH, Seite.ONE,false,"",true,"Bauch",false,false,"",false,true,"Schwanzflosse",false,false,"Dies ist ein Test.",datum.getTime());
+        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
+        Log.d(LOG_TAG, "ID: " + fish.getId() + ", Inhalt: " + fish.toString());
+
+        Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
+        showAllListEntries(fishViewerListView);
+
+
+        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
+        dataSource.close();
 
         return rootView;
     }
@@ -117,5 +120,16 @@ public class FishViewerFragment extends Fragment {
         }
         return true;
 
+    }
+
+    private void showAllListEntries (ListView Liste) {
+        List<Fish> fishList = dataSource.getAllFishes();
+
+        ArrayAdapter<Fish> fishListAdapter = new ArrayAdapter<> (
+                getActivity(),
+                android.R.layout.simple_list_item_multiple_choice,
+                fishList);
+
+        Liste.setAdapter(fishListAdapter);
     }
 }

@@ -219,6 +219,16 @@ public class EditFishFragment extends Fragment {
             }
         });
 
+/*        Button btn_editOK = (Button) rootView.findViewById(R.id.btn_editOK);
+        btn_editOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentValues values = new ContentValues();
+                values.put(FishDbHelper.COLUMN_PRODUCT, product);
+                values.put(FishDbHelper.COLUMN_QUANTITY, quantity);
+            }
+        });*/
+
         return rootView;
     }
 }
