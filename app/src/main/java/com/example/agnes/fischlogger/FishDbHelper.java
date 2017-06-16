@@ -47,9 +47,9 @@ public class FishDbHelper extends SQLiteOpenHelper{
                     COLUMN_LAENGE + " INTEGER NOT NULL, " +
                     COLUMN_BPA + " TEXT NOT NULL, " +
                     COLUMN_SV + " TEXT NOT NULL, " +
-                    COLUMN_HAEMATOM + " TEXT NOT NULL, " +
+                    COLUMN_HAEMATOM + " INTEGER, " +
                     COLUMN_HAEMATOM_STELLE + " TEXT NOT NULL, " +
-                    COLUMN_SCHUERFUNG + " TEXT NOT NULL, " +
+                    COLUMN_SCHUERFUNG + " INTEGER, " +
                     COLUMN_SCHUERFUNG_STELLE + " TEXT NOT NULL, " +
                     COLUMN_SCHUERFUNG_VERPILZT + " INTEGER, " +
                     COLUMN_OW + " INTEGER, " +

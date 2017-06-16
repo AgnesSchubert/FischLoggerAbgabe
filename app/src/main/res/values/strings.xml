@@ -10,9 +10,11 @@
     <string name="antwort.nein">nein</string>
     <string name="antwort.ok">OK</string>
     <string name="antwort.abbrechen">Abbrechen</string>
+    <string name="antwort.naechster">nächster</string>
     <string name="action.aendern">ändern</string>
     <string name="keine">nirgends</string>
-
+    <string name="error.art">Art darf nicht leer sein!</string>
+    <string name="error.laenge">Länge darf nicht leer sein!</string>
     <!-- Menü-Einträge -->
     <string name="menu.einstellungen">Einstellungen</string>
     <string name="menu.neueLeerung">neue Leerung</string>

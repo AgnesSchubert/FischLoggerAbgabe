@@ -6,7 +6,6 @@ import android.util.Log;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +75,7 @@ public Fish createFish (String art,
                         boolean verpilzung,
                         String bemerkung,
                         double datum) {
+    this.open();
     ContentValues values = new ContentValues();
     values.put(FishDbHelper.COLUMN_ART, art);
     values.put(FishDbHelper.COLUMN_LAENGE, laenge);
@@ -104,10 +104,11 @@ public Fish createFish (String art,
             null, null, null, null);
 
     cursor.moveToFirst();
-    Fish shoppingMemo = cursorToFish(cursor);
+    Fish fish = cursorToFish(cursor);
     cursor.close();
+    this.close();
 
-    return shoppingMemo;
+    return fish;
     }
 
     private Fish cursorToFish(Cursor cursor) {
