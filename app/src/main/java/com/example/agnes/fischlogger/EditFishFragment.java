@@ -4,9 +4,15 @@ package com.example.agnes.fischlogger;
  * Created by Agnes on 10.05.2017.
  */
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
+import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 
 import android.util.Log;
@@ -35,8 +41,11 @@ import java.util.Date;
 
 public class EditFishFragment extends Fragment {
 
+    private boolean newFish = true;
+
     public static final String LOG_TAG = EditFishFragment.class.getSimpleName();
     private FishDataSource dataSource;
+
     int l = 12;
     private String [] choices = new String[l];
 
@@ -45,9 +54,6 @@ public class EditFishFragment extends Fragment {
     private boolean[] ow_checked = new boolean[l];
     private boolean[] ta_checked = new boolean[l];
 
-    //private String [] choices = null;
-    //private boolean [] checkedPositions = null;
-
     public EditFishFragment() {
     }
 
@@ -55,23 +61,6 @@ public class EditFishFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_editfish, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.editFish_action_einstellungen) {
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -102,14 +91,52 @@ public class EditFishFragment extends Fragment {
         final Button btn_schuerfung_wo = (Button) rootView.findViewById(R.id.btn_schuerfung_wo);
         final Button btn_ow_wo = (Button) rootView.findViewById(R.id.btn_ow_wo);
         final Button btn_ta_wo = (Button) rootView.findViewById(R.id.btn_ta_wo);
-        Intent empfangenerIntent = getActivity().getIntent();
-        if (empfangenerIntent != null && empfangenerIntent.hasExtra(Intent.EXTRA_TEXT)) {
-            //String fischInfo = empfangenerIntent.getStringExtra(Intent.EXTRA_TEXT);
+        final Intent receivedIntent = getActivity().getIntent();
+
+        // ggf. Daten übernehmen
+        if (receivedIntent != null && receivedIntent.getExtras() != null) {
+            newFish = false;
+            Bundle fishData = receivedIntent.getExtras();
+            haematom_checked = getCheckedPositions(fishData.getString("haematom_stelle"),choices);
+            schuerfung_checked = getCheckedPositions(fishData.getString("schuerfung_stelle"),choices);
+            ow_checked = getCheckedPositions(fishData.getString("ow_stelle"),choices);
+            ta_checked = getCheckedPositions(fishData.getString("ta_stelle"),choices);
+
+            //Eingabemaske anpassen
+            final AutoCompleteTextView autoComplete_Fisch_art = (AutoCompleteTextView) rootView.findViewById(R.id.autoComplete_fisch_art);
+            final EditText edit_fisch_laenge = (EditText) rootView.findViewById(R.id.edit_fisch_laenge);
+            final RadioButton rbtn_bpa_einstg = (RadioButton) rootView.findViewById(R.id.rbtn_bpa_einstg);
+            final RadioButton rbtn_bpa_beidstg = (RadioButton) rootView.findViewById(R.id.rbtn_bpa_beidstg);
+            final RadioButton rbtn_sv_einstg = (RadioButton) rootView.findViewById(R.id.rbtn_sv_einstg);
+            final RadioButton rbtn_sv_beidstg = (RadioButton) rootView.findViewById(R.id.rbtn_sv_beidstg);
+            final CheckBox cb_haematom = (CheckBox) rootView.findViewById(R.id.cb_haematom);
+            final CheckBox cb_schuerfung = (CheckBox) rootView.findViewById(R.id.cb_schuerfung);
+            final CheckBox cb_schuerfung_verpilzt = (CheckBox) rootView.findViewById(R.id.cb_schuerfung_verpilzt);
+            final CheckBox cb_ow = (CheckBox) rootView.findViewById(R.id.cb_ow);
+            final CheckBox cb_ow_verpilzt = (CheckBox) rootView.findViewById(R.id.cb_ow_verpilzt);
+            final CheckBox cb_ta = (CheckBox) rootView.findViewById(R.id.cb_ta);
+            final CheckBox cb_td = (CheckBox) rootView.findViewById(R.id.cb_td);
+            final CheckBox cb_verpilzung = (CheckBox) rootView.findViewById(R.id.cb_verpilzung);
+            final EditText edit_bemerkung = (EditText) rootView.findViewById(R.id.edit_bemerkung);
+
+            autoComplete_Fisch_art.setText(fishData.getString("art"));
+            edit_fisch_laenge.setText((String.valueOf(fishData.getDouble("laenge"))));
+            rbtn_bpa_einstg.setChecked(fishData.getBoolean("bpa_eins"));
+            rbtn_bpa_beidstg.setChecked(fishData.getBoolean("bpa_beids"));
+            rbtn_sv_einstg.setChecked(fishData.getBoolean("sv_eins"));
+            rbtn_sv_beidstg.setChecked(fishData.getBoolean("sv_beids"));
+            cb_haematom.setChecked(fishData.getBoolean("haematom"));
+            cb_schuerfung.setChecked(fishData.getBoolean("schuerfung"));
+            cb_schuerfung_verpilzt.setChecked(fishData.getBoolean("schuerfung_verpilzt"));
+            cb_ow.setChecked(fishData.getBoolean("ow"));
+            cb_ow_verpilzt.setChecked(fishData.getBoolean("ow_verpilzt"));
+            cb_ta.setChecked(fishData.getBoolean("ta"));
+            cb_td.setChecked(fishData.getBoolean("td"));
+            cb_verpilzung.setChecked(fishData.getBoolean("verpilzung"));
+            edit_bemerkung.setText(fishData.getString("bemerkung"));
         }
 
-        //OnClick-Listener für die Körperstellen-Buttons erstellen -> Alert-Dialoge anzeigen + auswerten
-
-
+        // OnClick-Listener für die Körperstellen-Buttons erstellen -> Alert-Dialoge anzeigen + auswerten
         btn_haematom_wo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,18 +261,29 @@ public class EditFishFragment extends Fragment {
             }
         });
 
+        btn_editAbort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //wechseln zum FishViewer
+                Intent fishViewerIntent = new Intent(getActivity(), FishViewerActivity.class);
+                startActivity(fishViewerIntent);
+            }
+        });
+
         btn_editOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 boolean complete = testComplete(rootView);
                 if(!complete){return;}
-                getData(rootView,dataSource);
+                if (!newFish){
+                    Bundle b = receivedIntent.getExtras();
+                    updateData(rootView,dataSource,b.getInt("pos")+1); //warum ist die +1 hier nötig???
+                }
+                else {writeData(rootView,dataSource);}
 
                 //wechseln zum FishViewer
                 Intent fishViewerIntent = new Intent(getActivity(), FishViewerActivity.class);
-                String test = "Test";
-                fishViewerIntent.putExtra(Intent.EXTRA_TEXT, test);
                 startActivity(fishViewerIntent);
             }
         });
@@ -256,9 +294,20 @@ public class EditFishFragment extends Fragment {
 
                 boolean complete = testComplete(rootView);
                 if(!complete){return;}
-                getData(rootView,dataSource);
+                if (!newFish){
+                    Bundle b = receivedIntent.getExtras();
+                    updateData(rootView,dataSource,b.getInt("pos")+1);
+                }
+                else {writeData(rootView,dataSource);}
 
-                //Eingabemaske leeren --> evtl. extra Methode dafür? Beim Abbrechen brauchen wir es aber doch nicht...
+                newFish = true;
+
+                //Eingabemaske leeren
+                Arrays.fill(haematom_checked, false);
+                Arrays.fill(schuerfung_checked, false);
+                Arrays.fill(ow_checked, false);
+                Arrays.fill(ta_checked, false);
+
                 final AutoCompleteTextView autoComplete_Fisch_art = (AutoCompleteTextView) rootView.findViewById(R.id.autoComplete_fisch_art);
                 final EditText edit_fisch_laenge = (EditText) rootView.findViewById(R.id.edit_fisch_laenge);
                 final RadioGroup rbtnGroup_bpa = (RadioGroup) rootView.findViewById(R.id.rbtnGroup_bpa);
@@ -273,11 +322,6 @@ public class EditFishFragment extends Fragment {
                 final CheckBox cb_verpilzung = (CheckBox) rootView.findViewById(R.id.cb_verpilzung);
                 final EditText edit_bemerkung = (EditText) rootView.findViewById(R.id.edit_bemerkung);
 
-                Arrays.fill(haematom_checked, false);
-                Arrays.fill(schuerfung_checked, false);
-                Arrays.fill(ow_checked, false);
-                Arrays.fill(ta_checked, false);
-
                 autoComplete_Fisch_art.setText(null);
                 edit_fisch_laenge.setText(null);
                 rbtnGroup_bpa.clearCheck();
@@ -291,6 +335,16 @@ public class EditFishFragment extends Fragment {
                 cb_td.setChecked(false);
                 cb_verpilzung.setChecked(false);
                 edit_bemerkung.setText(null);
+
+                /*
+                // neues Fragment (ohne putExtras) erstellen
+                // man müsste das alte hier irgendwie zerstören...
+                receivedIntent.removeExtra("");
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.beginTransaction().remove(actualFragment).commit();
+                Intent editFishIntent = new Intent(getActivity(), EditFishActivity.class);
+                startActivity(editFishIntent);
+                */
             }
         });
 
@@ -315,8 +369,7 @@ public class EditFishFragment extends Fragment {
         return ret;
     }
 
-    void getData(View rootView, FishDataSource dataSource){
-
+    Fish getFish(View rootView){
         final AutoCompleteTextView autoComplete_Fisch_art = (AutoCompleteTextView) rootView.findViewById(R.id.autoComplete_fisch_art);
         final EditText edit_fisch_laenge = (EditText) rootView.findViewById(R.id.edit_fisch_laenge);
         final RadioButton rbtn_bpa_einstg = (RadioButton) rootView.findViewById(R.id.rbtn_bpa_einstg);
@@ -346,8 +399,8 @@ public class EditFishFragment extends Fragment {
         if(rbtn_bpa_einstg.isChecked()){bpa = Seite.ONE;}
         if(rbtn_bpa_beidstg.isChecked()){bpa = Seite.BOTH;}
         Seite sv = Seite.NONE;
-        if(rbtn_sv_einstg.isChecked()){bpa = Seite.ONE;}
-        if(rbtn_sv_beidstg.isChecked()){bpa = Seite.BOTH;}
+        if(rbtn_sv_einstg.isChecked()){sv = Seite.ONE;}
+        if(rbtn_sv_beidstg.isChecked()){sv = Seite.BOTH;}
         boolean haematom = cb_haematom.isChecked();
         boolean schuerfung = cb_schuerfung.isChecked();
         boolean schuerfung_verpilzt = cb_schuerfung_verpilzt.isChecked();
@@ -358,9 +411,19 @@ public class EditFishFragment extends Fragment {
         boolean verpilzung = cb_verpilzung.isChecked();
         String bemerkung = edit_bemerkung.getText().toString();
 
-        double datum = (new Date()).getTime();
+        long datum = (new Date()).getTime();
 
-        dataSource.createFish(art,laenge,bpa,sv,haematom,haematom_wo,schuerfung,schuerfung_wo,schuerfung_verpilzt,ow,ow_wo,ow_verpilzt,ta,ta_wo,td,verpilzung,bemerkung,datum);
+        return new Fish(art,laenge,bpa,sv,haematom,haematom_wo,schuerfung,schuerfung_wo,schuerfung_verpilzt,ow,ow_wo,ow_verpilzt,ta,ta_wo,td,verpilzung,bemerkung,datum,null);
+    }
+
+    void writeData(View rootView, FishDataSource dataSource){
+        Fish f = getFish(rootView);
+        dataSource.createFish(f);
+    }
+
+    void updateData(View rootView, FishDataSource dataSource, int pos){
+        Fish f = getFish(rootView);
+        dataSource.updateFish(pos, f);
     }
 
 

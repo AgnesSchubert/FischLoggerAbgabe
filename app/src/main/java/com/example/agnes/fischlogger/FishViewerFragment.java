@@ -4,17 +4,14 @@ package com.example.agnes.fischlogger;
  * Created by Agnes on 10.05.2017.
  */
 
-import android.app.Activity;
 import android.content.Intent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import android.util.Log;
-import android.text.TextUtils;
 
 import android.view.ContextMenu;
-import android.view.inputmethod.InputMethodManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,8 +21,6 @@ import android.view.ViewGroup;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -72,8 +67,9 @@ public class FishViewerFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.fishViewer_action_einstellungen) {
-
+        if (id == R.id.fishViewer_action_newFish) {
+            Intent editFishIntent = new Intent(getActivity(), EditFishActivity.class);
+            startActivity(editFishIntent);
             return true;
         }
 
@@ -88,24 +84,8 @@ public class FishViewerFragment extends Fragment {
         final ListView fishViewerListView = (ListView) rootView.findViewById(R.id.listview_fische);
         registerForContextMenu(fishViewerListView);
 
-        //java.util.Date datum = new java.util.Date();
-        //Fish testFisch = new Fish("Bachforelle", 12.5, Seite.NONE, Seite.ONE,false,"",true,"Bauch",false,false,"",false,true,"Schwanzflosse",false,false,"Dies ist ein Test.",datum.getTime(),1);
-        //Log.d(LOG_TAG, "Inhalt der Testmemo: " + testFisch.toString());
         Log.d(LOG_TAG, "Das Datenquellen-Objekt wird angelegt.");
         dataSource = new FishDataSource(getContext());
-
-        /*Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
-        dataSource.open();
-
-        Fish fish = dataSource.createFish("Bachforelle", 12.5, Seite.BOTH, Seite.ONE,false,"",true,"Bauch",false,false,"",false,true,"Schwanzflosse",false,false,"Dies ist ein Test.",datum.getTime());
-        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
-        Log.d(LOG_TAG, "ID: " + fish.getId() + ", Inhalt: " + fish.toString());
-
-        Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
-        showAllListEntries(fishViewerListView);
-
-        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
-        dataSource.close();*/
 
         return rootView;
     }
@@ -115,7 +95,7 @@ public class FishViewerFragment extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         if (v.getId()==R.id.listview_fische) {
             MenuInflater inflater = getActivity().getMenuInflater();
-            inflater.inflate(R.menu.menu_deletefish, menu);
+            inflater.inflate(R.menu.menu_fishviewer_context, menu);
         }
     }
 
@@ -126,20 +106,15 @@ public class FishViewerFragment extends Fragment {
             Toast.makeText(getContext(), "TEST: löschen", Toast.LENGTH_LONG).show();
         }else if (id == R.id.fishviewer_context_edit) {
             AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-            long selID = menuInfo.id;
+            //long selID = menuInfo.id;
             int selPos = menuInfo.position;
-            //String fischInfo = (String) adapterView.getItemAtPosition(position);
-            String fischInfo = "TEST: neuer Intent";
             Intent editFishIntent = new Intent(getActivity(), EditFishActivity.class);
-            editFishIntent.putExtra(Intent.EXTRA_TEXT, fischInfo);
+            editFishIntent.putExtras(getBundle(selPos));
             startActivity(editFishIntent);
-        }else if (id == R.id.fishviewer_context_new){
-            Toast.makeText(getContext(),"TEST: neu",Toast.LENGTH_LONG).show();
         }else{
             return false;
         }
         return true;
-
     }
 
     private void showAllListEntries (ListView Liste) {
@@ -147,9 +122,37 @@ public class FishViewerFragment extends Fragment {
 
         ArrayAdapter<Fish> fishListAdapter = new ArrayAdapter<> (
                 getActivity(),
-                android.R.layout.simple_list_item_multiple_choice,
+                android.R.layout.simple_list_item_1,
                 fishList);
 
         Liste.setAdapter(fishListAdapter);
+    }
+
+    Bundle getBundle(int selPos){
+        Bundle b = new Bundle();
+
+        Fish f = dataSource.getFish(selPos);
+        b.putString("art",f.getArt());
+        b.putDouble("laenge",f.getLaenge());
+        b.putBoolean("bpa_eins",f.getBpa()==Seite.ONE);
+        b.putBoolean("bpa_beids",f.getBpa()==Seite.BOTH);
+        b.putBoolean("sv_eins",f.getSv()==Seite.ONE);
+        b.putBoolean("sv_beids",f.getSv()==Seite.BOTH);
+        b.putBoolean("haematom",f.getHaematom());
+        b.putString("haematom_stelle",f.getHaematomStelle());
+        b.putBoolean("schuerfung",f.getSchuerfung());
+        b.putString("schuerfung_stelle",f.getSchuerfungStelle());
+        b.putBoolean("schuerfung_verpilzt",f.getSchuerfungVerpilzt());
+        b.putBoolean("ow",f.getOw());
+        b.putString("ow_stelle",f.getOwStelle());
+        b.putBoolean("ow_verpilzt",f.getOwVerpilzt());
+        b.putBoolean("ta",f.getTa());
+        b.putString("ta_stelle",f.getTaStelle());
+        b.putBoolean("td",f.getTotaldurchtrennung());
+        b.putBoolean("verpilzung",f.getVerpilzung());
+        b.putString("bemerkung",f.getBemerkung());
+        b.putInt("pos",selPos);
+
+        return b;
     }
 }

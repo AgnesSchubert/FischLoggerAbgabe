@@ -1,5 +1,9 @@
 package com.example.agnes.fischlogger;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Agnes on 12.06.2017.
  */
@@ -22,8 +26,8 @@ public class Fish {
     private boolean totaldurchtrennung;
     private boolean verpilzung;
     private String bemerkung;
-    private double datum;
-    private long id;
+    private long datum;
+    private Long id;
 
 
     public Fish(
@@ -44,8 +48,8 @@ public class Fish {
             boolean totaldurchtrennung,
             boolean verpilzung,
             String bemerkung,
-            double datum,
-            long id
+            long datum,
+            Long id
     ) {
         this.art = art;
         this.laenge = laenge;
@@ -103,14 +107,15 @@ public class Fish {
     public void setVerpilzung(String bemerkung) {this.verpilzung = verpilzung;}
     public String getBemerkung() {return bemerkung;}
     public void setBemerkung(String bemerkung) {this.bemerkung = bemerkung;}
-    public double getDatum() {return datum;}
-    public void setDatum(double datum) {this.datum = datum;}
-    public long getId() {return id;}
-    public void setId(long id) {this.id = id;}
+    public long getDatum() {return datum;}
+    public void setDatum(long datum) {this.datum = datum;}
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
     @Override
     public String toString() {
-        String output = art + " : " + laenge;
+        DateFormat df = new SimpleDateFormat("dd.MM.yy HH:mm");
+        String output = art + " : " + laenge + " (" + df.format(datum) + ")";
         return output;
     }
 

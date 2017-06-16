@@ -57,58 +57,56 @@ public class FishDataSource {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
-public Fish createFish (String art,
-                        double laenge,
-                        Seite bpa,
-                        Seite sv,
-                        boolean haematom,
-                        String heamatom_stelle,
-                        boolean schuerfung,
-                        String schuerfung_stelle,
-                        boolean schuerfung_verpilzt,
-                        boolean ow,
-                        String ow_stelle,
-                        boolean ow_verpilzt,
-                        boolean ta,
-                        String ta_stelle,
-                        boolean totaldurchtrennung,
-                        boolean verpilzung,
-                        String bemerkung,
-                        double datum) {
-    this.open();
-    ContentValues values = new ContentValues();
-    values.put(FishDbHelper.COLUMN_ART, art);
-    values.put(FishDbHelper.COLUMN_LAENGE, laenge);
-    values.put(FishDbHelper.COLUMN_BPA, bpa.getName());
-    values.put(FishDbHelper.COLUMN_SV, sv.getName());
-    values.put(FishDbHelper.COLUMN_HAEMATOM, haematom);
-    values.put(FishDbHelper.COLUMN_HAEMATOM_STELLE, heamatom_stelle);
-    values.put(FishDbHelper.COLUMN_SCHUERFUNG, schuerfung);
-    values.put(FishDbHelper.COLUMN_SCHUERFUNG_STELLE, schuerfung_stelle);
-    values.put(FishDbHelper.COLUMN_SCHUERFUNG_VERPILZT, schuerfung_verpilzt);
-    values.put(FishDbHelper.COLUMN_OW, ow);
-    values.put(FishDbHelper.COLUMN_OW_STELLE, ow_stelle);
-    values.put(FishDbHelper.COLUMN_OW_VERPILZT, ow_verpilzt);
-    values.put(FishDbHelper.COLUMN_TA, ta);
-    values.put(FishDbHelper.COLUMN_TA_STELLE, ta_stelle);
-    values.put(FishDbHelper.COLUMN_TOTALDURCHTRENNUNG, totaldurchtrennung);
-    values.put(FishDbHelper.COLUMN_VERPILZUNG, verpilzung);
-    values.put(FishDbHelper.COLUMN_BEMERKUNG, bemerkung);
-    values.put(FishDbHelper.COLUMN_DATUM, datum);
+    public Fish createFish(Fish f) {
+        this.open();
+        ContentValues values = new ContentValues();
+        values.put(FishDbHelper.COLUMN_ART, f.getArt());
+        values.put(FishDbHelper.COLUMN_LAENGE, f.getLaenge());
+        values.put(FishDbHelper.COLUMN_BPA, f.getBpa().getName());
+        values.put(FishDbHelper.COLUMN_SV, f.getSv().getName());
+        values.put(FishDbHelper.COLUMN_HAEMATOM, f.getHaematom());
+        values.put(FishDbHelper.COLUMN_HAEMATOM_STELLE, f.getHaematomStelle());
+        values.put(FishDbHelper.COLUMN_SCHUERFUNG, f.getSchuerfung());
+        values.put(FishDbHelper.COLUMN_SCHUERFUNG_STELLE, f.getSchuerfungStelle());
+        values.put(FishDbHelper.COLUMN_SCHUERFUNG_VERPILZT, f.getSchuerfungVerpilzt());
+        values.put(FishDbHelper.COLUMN_OW, f.getOw());
+        values.put(FishDbHelper.COLUMN_OW_STELLE, f.getOwStelle());
+        values.put(FishDbHelper.COLUMN_OW_VERPILZT, f.getOwVerpilzt());
+        values.put(FishDbHelper.COLUMN_TA, f.getTa());
+        values.put(FishDbHelper.COLUMN_TA_STELLE, f.getTaStelle());
+        values.put(FishDbHelper.COLUMN_TOTALDURCHTRENNUNG, f.getTotaldurchtrennung());
+        values.put(FishDbHelper.COLUMN_VERPILZUNG, f.getVerpilzung());
+        values.put(FishDbHelper.COLUMN_BEMERKUNG, f.getBemerkung());
+        values.put(FishDbHelper.COLUMN_DATUM, f.getDatum());
 
-    long insertId = database.insert(FishDbHelper.TABLE_FISH_LIST, null, values);
+        long insertID = database.insert(FishDbHelper.TABLE_FISH_LIST, null, values);
+        f.setId(insertID);
+        return f;
+    }
 
-    //brauche ich das überhaupt?
-    Cursor cursor = database.query(FishDbHelper.TABLE_FISH_LIST,
-            columns, FishDbHelper.COLUMN_ID + "=" + insertId,
-            null, null, null, null);
+    public void updateFish(int pos, Fish f) {
+        this.open();
+        ContentValues values = new ContentValues();
+        values.put(FishDbHelper.COLUMN_ART, f.getArt());
+        values.put(FishDbHelper.COLUMN_LAENGE, f.getLaenge());
+        values.put(FishDbHelper.COLUMN_BPA, f.getBpa().getName());
+        values.put(FishDbHelper.COLUMN_SV, f.getSv().getName());
+        values.put(FishDbHelper.COLUMN_HAEMATOM, f.getHaematom());
+        values.put(FishDbHelper.COLUMN_HAEMATOM_STELLE, f.getHaematomStelle());
+        values.put(FishDbHelper.COLUMN_SCHUERFUNG, f.getSchuerfung());
+        values.put(FishDbHelper.COLUMN_SCHUERFUNG_STELLE, f.getSchuerfungStelle());
+        values.put(FishDbHelper.COLUMN_SCHUERFUNG_VERPILZT, f.getSchuerfungVerpilzt());
+        values.put(FishDbHelper.COLUMN_OW, f.getOw());
+        values.put(FishDbHelper.COLUMN_OW_STELLE, f.getOwStelle());
+        values.put(FishDbHelper.COLUMN_OW_VERPILZT, f.getOwVerpilzt());
+        values.put(FishDbHelper.COLUMN_TA, f.getTa());
+        values.put(FishDbHelper.COLUMN_TA_STELLE, f.getTaStelle());
+        values.put(FishDbHelper.COLUMN_TOTALDURCHTRENNUNG, f.getTotaldurchtrennung());
+        values.put(FishDbHelper.COLUMN_VERPILZUNG, f.getVerpilzung());
+        values.put(FishDbHelper.COLUMN_BEMERKUNG, f.getBemerkung());
+        //values.put(FishDbHelper.COLUMN_DATUM, f.getDatum());
 
-    cursor.moveToFirst();
-    Fish fish = cursorToFish(cursor);
-    cursor.close();
-    this.close();
-
-    return fish;
+        this.database.update(FishDbHelper.TABLE_FISH_LIST, values, "_id=" + pos, null);
     }
 
     private Fish cursorToFish(Cursor cursor) {
@@ -136,20 +134,20 @@ public Fish createFish (String art,
         double laenge = cursor.getDouble(idLaenge);
         Seite bpa = Seite.toSeite(cursor.getString(idBpa));
         Seite sv = Seite.toSeite(cursor.getString(idSv));
-        boolean haematom = (cursor.getInt(idHaematom)==1);
+        boolean haematom = (cursor.getInt(idHaematom) == 1);
         String heamatom_stelle = cursor.getString(idHaematomStelle);
-        boolean schuerfung = (cursor.getInt(idSchuerfung)==1);
+        boolean schuerfung = (cursor.getInt(idSchuerfung) == 1);
         String schuerfung_stelle = cursor.getString(idSchuerfungStelle);
-        boolean schuerfung_verpilzt = (cursor.getInt(idSchuerfungVerpilzt)==1);
-        boolean ow = (cursor.getInt(idOw)==1);
+        boolean schuerfung_verpilzt = (cursor.getInt(idSchuerfungVerpilzt) == 1);
+        boolean ow = (cursor.getInt(idOw) == 1);
         String ow_stelle = cursor.getString(idOwStelle);
-        boolean ow_verpilzt = (cursor.getInt(idOwVerpilzt)==1);
-        boolean ta = (cursor.getInt(idTa)==1);
+        boolean ow_verpilzt = (cursor.getInt(idOwVerpilzt) == 1);
+        boolean ta = (cursor.getInt(idTa) == 1);
         String ta_stelle = cursor.getString(idTaStelle);
-        boolean totaldurchtrennung = (cursor.getInt(idTotaldurchtrennung)==1);
-        boolean verpilzung = (cursor.getInt(idVerpilzung)==1);
+        boolean totaldurchtrennung = (cursor.getInt(idTotaldurchtrennung) == 1);
+        boolean verpilzung = (cursor.getInt(idVerpilzung) == 1);
         String bemerkung = cursor.getString(idBemerkung);
-        double datum = cursor.getDouble(idDatum);
+        long datum = cursor.getLong(idDatum);
         long id = cursor.getLong(idIndex);
 
         Fish fish = new Fish(art,
@@ -184,10 +182,9 @@ public Fish createFish (String art,
         cursor.moveToFirst();
         Fish fish;
 
-        while(!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast()) {
             fish = cursorToFish(cursor);
             fishList.add(fish);
-            Log.d(LOG_TAG, "ID: " + fish.getId() + ", Inhalt: " + fish.toString());
             cursor.moveToNext();
         }
 
@@ -196,4 +193,11 @@ public Fish createFish (String art,
         return fishList;
     }
 
+    public Fish getFish(int pos) {
+        Cursor cursor = database.query(FishDbHelper.TABLE_FISH_LIST,
+                columns, null, null, null, null, null);
+        cursor.moveToPosition(pos);
+        Fish fish = cursorToFish(cursor);
+        return fish;
+    }
 }

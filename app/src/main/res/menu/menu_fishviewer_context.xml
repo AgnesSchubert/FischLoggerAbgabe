@@ -8,7 +8,4 @@
     <item android:id="@+id/fishviewer_context_delete"
         android:title="@string/menu.context.fishviewer.delete" />
 
-    <item android:id="@+id/fishviewer_context_new"
-        android:title="@string/menu.context.fishviewer.new" />
-
 </menu>
