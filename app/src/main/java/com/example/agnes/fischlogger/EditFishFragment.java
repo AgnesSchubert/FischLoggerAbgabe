@@ -5,24 +5,12 @@ package com.example.agnes.fischlogger;
  */
 
 import android.os.Bundle;
-import android.support.annotation.AnimRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-
-import android.util.Log;
 
 import android.text.TextUtils;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,12 +19,14 @@ import android.content.Intent;
 
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -44,18 +34,15 @@ public class EditFishFragment extends Fragment {
 
     private boolean newFish = true;
 
-    public static final String LOG_TAG = EditFishFragment.class.getSimpleName();
     private FishDataSource dataSource;
 
-    private String [] arten = new String[74];
+    private String [] arten;
+    private String [] choices;
 
-    int l = 12;
-    private String [] choices = new String[l];
-
-    private boolean[] haematom_checked = new boolean[l];
-    private boolean[] schuerfung_checked = new boolean[l];
-    private boolean[] ow_checked = new boolean[l];
-    private boolean[] ta_checked = new boolean[l];
+    private boolean[] haematom_checked;
+    private boolean[] schuerfung_checked;
+    private boolean[] ow_checked;
+    private boolean[] ta_checked;
 
     public EditFishFragment() {
     }
@@ -71,97 +58,27 @@ public class EditFishFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_editfish, container, false);
 
-        Log.d(LOG_TAG, "Das Datenquellen-Objekt wird angelegt.");
         dataSource = new FishDataSource(getContext());
 
-        arten[0] = getString(R.string.art_europa_Meeresneunauge);
-        arten[1] = getString(R.string.art_europa_Flussneunauge);
-        arten[2] = getString(R.string.art_europa_Bachneunauge);
-        arten[3] = getString(R.string.art_europa_Stoer);
-        arten[4] = getString(R.string.art_europa_Sterlet);
-        arten[5] = getString(R.string.art_europa_Hausen);
-        arten[6] = getString(R.string.art_europa_Aal);
-        arten[7] = getString(R.string.art_europa_Finte);
-        arten[8] = getString(R.string.art_europa_Bachforelle);
-        arten[9] = getString(R.string.art_europa_Meerforelle);
-        arten[10] = getString(R.string.art_europa_LachsAtlantischer);
-        arten[11] = getString(R.string.art_europa_Huchen);
-        arten[12] = getString(R.string.art_europa_Regenbogenforelle);
-        arten[13] = getString(R.string.art_europa_Ketalachs);
-        arten[14] = getString(R.string.art_europa_Buckellachs);
-        arten[15] = getString(R.string.art_europa_Bachsaibling);
-        arten[16] = getString(R.string.art_europa_Seesaibling);
-        arten[17] = getString(R.string.art_europa_Renke);
-        arten[18] = getString(R.string.art_europa_Aesche);
-        arten[19] = getString(R.string.art_europa_Stint);
-        arten[20] = getString(R.string.art_europa_Hecht);
-        arten[21] = getString(R.string.art_europa_Hundsfisch);
-        arten[22] = getString(R.string.art_europa_Ploetze);
-        arten[23] = getString(R.string.art_europa_Frauennerfling);
-        arten[24] = getString(R.string.art_europa_Perlfisch);
-        arten[25] = getString(R.string.art_europa_Moderlieschen);
-        arten[26] = getString(R.string.art_europa_Hasel);
-        arten[27] = getString(R.string.art_europa_Doebel);
-        arten[28] = getString(R.string.art_europa_Stroemer);
-        arten[29] = getString(R.string.art_europa_Orfe);
-        arten[30] = getString(R.string.art_europa_Elritze);
-        arten[31] = getString(R.string.art_europa_Rotfeder);
-        arten[32] = getString(R.string.art_europa_Rapfen);
-        arten[33] = getString(R.string.art_europa_Nase);
-        arten[34] = getString(R.string.art_europa_Mairenke);
-        arten[35] = getString(R.string.art_europa_Ukelei);
-        arten[36] = getString(R.string.art_europa_Schneider);
-        arten[37] = getString(R.string.art_europa_Guester);
-        arten[38] = getString(R.string.art_europa_Blei);
-        arten[39] = getString(R.string.art_europa_Zobel);
-        arten[40] = getString(R.string.art_europa_Zope);
-        arten[41] = getString(R.string.art_europa_Zaehrte);
-        arten[42] = getString(R.string.art_europa_Ziege);
-        arten[43] = getString(R.string.art_europa_Graskarpfen);
-        arten[44] = getString(R.string.art_europa_Gruendling);
-        arten[45] = getString(R.string.art_europa_Steingressling);
-        arten[46] = getString(R.string.art_europa_Barbe);
-        arten[47] = getString(R.string.art_europa_Schleie);
-        arten[48] = getString(R.string.art_europa_Karausche);
-        arten[49] = getString(R.string.art_europa_Giebel);
-        arten[50] = getString(R.string.art_europa_Karpfen);
-        arten[51] = getString(R.string.art_europa_Bitterling);
-        arten[52] = getString(R.string.art_europa_Schmerle);
-        arten[53] = getString(R.string.art_europa_Schlammpeitzger);
-        arten[54] = getString(R.string.art_europa_Steinbeisser);
-        arten[55] = getString(R.string.art_europa_Wels);
-        arten[56] = getString(R.string.art_europa_ZwergwelsBrauner);
-        arten[57] = getString(R.string.art_europa_Quappe);
-        arten[58] = getString(R.string.art_europa_MittelmeerKaerpfling);
-        arten[59] = getString(R.string.art_europa_KoboldKaerpfling);
-        arten[60] = getString(R.string.art_europa_AehrenfischKleiner);
-        arten[61] = getString(R.string.art_europa_StichlingDreistachliger);
-        arten[62] = getString(R.string.art_europa_StichlingNeunstachliger);
-        arten[63] = getString(R.string.art_europa_Flussbarsch);
-        arten[64] = getString(R.string.art_europa_Kaulbarsch);
-        arten[65] = getString(R.string.art_europa_Schraetzer);
-        arten[66] = getString(R.string.art_europa_Zander);
-        arten[67] = getString(R.string.art_europa_Zingel);
-        arten[68] = getString(R.string.art_europa_Forellenbarsch);
-        arten[69] = getString(R.string.art_europa_Sonnenbarsch);
-        arten[70] = getString(R.string.art_europa_SuesswasserSchleimfisch);
-        arten[71] = getString(R.string.art_europa_Marmorgrundel);
-        arten[72] = getString(R.string.art_europa_Groppe);
-        arten[73] = getString(R.string.art_europa_Flunder);
+        final Intent receivedIntent = getActivity().getIntent();
 
-        choices[0] = getString(R.string.koerper_flosse_bauch);
-        choices[1] = getString(R.string.koerper_flosse_ruecken);
-        choices[2] = getString(R.string.koerper_flosse_after);
-        choices[3] = getString(R.string.koerper_flosse_schwanz);
-        choices[4] = getString(R.string.koerper_flosse_fett);
-        choices[5] = getString(R.string.koerper_teil_kopf);
-        choices[6] = getString(R.string.koerper_teil_maul);
-        choices[7] = getString(R.string.koerper_teil_ruecken);
-        choices[8] = getString(R.string.koerper_teil_bauch);
-        choices[9] = getString(R.string.koerper_teil_seitelinks);
-        choices[10] = getString(R.string.koerper_teil_seiterechts);
-        choices[11] = getString(R.string.koerper_teil_seitebeide);
+        // Fischarten für das Autocomplete-Textfeld
+        arten = getResources().getStringArray(R.array.fischarten);
 
+        // Körperstellen für die Auswahl-AlertDialoge
+        choices = getResources().getStringArray(R.array.koerperstellen);
+
+        // Körperstellen-Arrays initialisieren
+        haematom_checked = new boolean[choices.length];
+        schuerfung_checked = new boolean[choices.length];
+        ow_checked = new boolean[choices.length];
+        ta_checked = new boolean[choices.length];
+        /*Arrays.fill(haematom_checked, false);
+        Arrays.fill(schuerfung_checked, false);
+        Arrays.fill(ow_checked, false);
+        Arrays.fill(ta_checked, false);*/
+
+        // Formularelemente
         Button btn_editOK = (Button) rootView.findViewById(R.id.btn_editOK);
         Button btn_editNext = (Button) rootView.findViewById(R.id.btn_editNext);
         Button btn_editAbort = (Button) rootView.findViewById(R.id.btn_editAbort);
@@ -169,39 +86,43 @@ public class EditFishFragment extends Fragment {
         final Button btn_schuerfung_wo = (Button) rootView.findViewById(R.id.btn_schuerfung_wo);
         final Button btn_ow_wo = (Button) rootView.findViewById(R.id.btn_ow_wo);
         final Button btn_ta_wo = (Button) rootView.findViewById(R.id.btn_ta_wo);
-        final Intent receivedIntent = getActivity().getIntent();
+        final EditText edit_fisch_laenge = (EditText) rootView.findViewById(R.id.edit_fisch_laenge);
+        final RadioButton rbtn_bpa_einstg = (RadioButton) rootView.findViewById(R.id.rbtn_bpa_einstg);
+        final RadioButton rbtn_bpa_beidstg = (RadioButton) rootView.findViewById(R.id.rbtn_bpa_beidstg);
+        final RadioButton rbtn_sv_einstg = (RadioButton) rootView.findViewById(R.id.rbtn_sv_einstg);
+        final RadioButton rbtn_sv_beidstg = (RadioButton) rootView.findViewById(R.id.rbtn_sv_beidstg);
+        final CheckBox cb_haematom = (CheckBox) rootView.findViewById(R.id.cb_haematom);
+        final CheckBox cb_schuerfung = (CheckBox) rootView.findViewById(R.id.cb_schuerfung);
+        final CheckBox cb_schuerfung_verpilzt = (CheckBox) rootView.findViewById(R.id.cb_schuerfung_verpilzt);
+        final CheckBox cb_ow = (CheckBox) rootView.findViewById(R.id.cb_ow);
+        final CheckBox cb_ow_verpilzt = (CheckBox) rootView.findViewById(R.id.cb_ow_verpilzt);
+        final CheckBox cb_ta = (CheckBox) rootView.findViewById(R.id.cb_ta);
+        final CheckBox cb_td = (CheckBox) rootView.findViewById(R.id.cb_td);
+        final CheckBox cb_verpilzung = (CheckBox) rootView.findViewById(R.id.cb_verpilzung);
+        final EditText edit_bemerkung = (EditText) rootView.findViewById(R.id.edit_bemerkung);
 
         // Autocomplete-Vorschläge für die Fischart
-        ArrayAdapter<String> artenAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_dropdown_item_1line, arten);
+        ArrayAdapter<String> artenAdapter = new ArrayAdapter<>(
+                getActivity(),
+                android.R.layout.simple_dropdown_item_1line,
+                arten);
         final AutoCompleteTextView autoComplete_Fisch_art = (AutoCompleteTextView) rootView.findViewById(R.id.autoComplete_fisch_art);
         autoComplete_Fisch_art.setAdapter(artenAdapter);
+
+        // Bedienelemente ein-/ausschalten
+        btn_haematom_wo.setEnabled(false);
+        btn_schuerfung_wo.setEnabled(false);
+        btn_ow_wo.setEnabled(false);
+        btn_ta_wo.setEnabled(false);
+        cb_ow_verpilzt.setEnabled(false);
+        cb_schuerfung_verpilzt.setEnabled(false);
 
         // ggf. Daten übernehmen
         if (receivedIntent != null && receivedIntent.getExtras() != null) {
             newFish = false;
             Bundle fishData = receivedIntent.getExtras();
-            haematom_checked = getCheckedPositions(fishData.getString("haematom_stelle"),choices);
-            schuerfung_checked = getCheckedPositions(fishData.getString("schuerfung_stelle"),choices);
-            ow_checked = getCheckedPositions(fishData.getString("ow_stelle"),choices);
-            ta_checked = getCheckedPositions(fishData.getString("ta_stelle"),choices);
 
             //Eingabemaske anpassen
-            final EditText edit_fisch_laenge = (EditText) rootView.findViewById(R.id.edit_fisch_laenge);
-            final RadioButton rbtn_bpa_einstg = (RadioButton) rootView.findViewById(R.id.rbtn_bpa_einstg);
-            final RadioButton rbtn_bpa_beidstg = (RadioButton) rootView.findViewById(R.id.rbtn_bpa_beidstg);
-            final RadioButton rbtn_sv_einstg = (RadioButton) rootView.findViewById(R.id.rbtn_sv_einstg);
-            final RadioButton rbtn_sv_beidstg = (RadioButton) rootView.findViewById(R.id.rbtn_sv_beidstg);
-            final CheckBox cb_haematom = (CheckBox) rootView.findViewById(R.id.cb_haematom);
-            final CheckBox cb_schuerfung = (CheckBox) rootView.findViewById(R.id.cb_schuerfung);
-            final CheckBox cb_schuerfung_verpilzt = (CheckBox) rootView.findViewById(R.id.cb_schuerfung_verpilzt);
-            final CheckBox cb_ow = (CheckBox) rootView.findViewById(R.id.cb_ow);
-            final CheckBox cb_ow_verpilzt = (CheckBox) rootView.findViewById(R.id.cb_ow_verpilzt);
-            final CheckBox cb_ta = (CheckBox) rootView.findViewById(R.id.cb_ta);
-            final CheckBox cb_td = (CheckBox) rootView.findViewById(R.id.cb_td);
-            final CheckBox cb_verpilzung = (CheckBox) rootView.findViewById(R.id.cb_verpilzung);
-            final EditText edit_bemerkung = (EditText) rootView.findViewById(R.id.edit_bemerkung);
-
             autoComplete_Fisch_art.setText(fishData.getString("art"));
             edit_fisch_laenge.setText((String.valueOf(fishData.getDouble("laenge"))));
             rbtn_bpa_einstg.setChecked(fishData.getBoolean("bpa_eins"));
@@ -209,15 +130,68 @@ public class EditFishFragment extends Fragment {
             rbtn_sv_einstg.setChecked(fishData.getBoolean("sv_eins"));
             rbtn_sv_beidstg.setChecked(fishData.getBoolean("sv_beids"));
             cb_haematom.setChecked(fishData.getBoolean("haematom"));
+            if (fishData.getBoolean("haematom")){
+                btn_haematom_wo.setEnabled(true);
+                haematom_checked = getCheckedPositions(fishData.getString("haematom_stelle"),choices);
+            }
             cb_schuerfung.setChecked(fishData.getBoolean("schuerfung"));
-            cb_schuerfung_verpilzt.setChecked(fishData.getBoolean("schuerfung_verpilzt"));
+            if (fishData.getBoolean("schuerfung")){
+                btn_schuerfung_wo.setEnabled(true);
+                cb_schuerfung_verpilzt.setEnabled(true);
+                schuerfung_checked = getCheckedPositions(fishData.getString("schuerfung_stelle"),choices);
+                cb_schuerfung_verpilzt.setChecked(fishData.getBoolean("schuerfung_verpilzt"));
+            }
             cb_ow.setChecked(fishData.getBoolean("ow"));
-            cb_ow_verpilzt.setChecked(fishData.getBoolean("ow_verpilzt"));
+            if (fishData.getBoolean("ow")){
+                btn_ow_wo.setEnabled(true);
+                cb_schuerfung_verpilzt.setEnabled(true);
+                ow_checked = getCheckedPositions(fishData.getString("ow_stelle"),choices);
+                cb_ow_verpilzt.setChecked(fishData.getBoolean("ow_verpilzt"));
+            }
             cb_ta.setChecked(fishData.getBoolean("ta"));
+            if (fishData.getBoolean("ta")){
+                btn_ta_wo.setEnabled(true);
+                ta_checked = getCheckedPositions(fishData.getString("ta_stelle"),choices);
+            }
             cb_td.setChecked(fishData.getBoolean("td"));
             cb_verpilzung.setChecked(fishData.getBoolean("verpilzung"));
             edit_bemerkung.setText(fishData.getString("bemerkung"));
         }
+
+        // OnCheckedChange-Listener für die Boolean-CheckBoxes für Hämatome, Schürfungen, offene Wunden, Teilamputationen
+        // aktiviert bzw. deaktiviert die zugehörigen Formularelemente
+        cb_haematom.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton b, boolean checked) {
+                Arrays.fill(haematom_checked, false);
+                btn_haematom_wo.setEnabled(checked);
+            }
+        });
+        cb_schuerfung.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton b, boolean checked) {
+                Arrays.fill(schuerfung_checked, false);
+                cb_schuerfung_verpilzt.setChecked(false);
+                btn_schuerfung_wo.setEnabled(checked);
+                cb_schuerfung_verpilzt.setEnabled(checked);
+            }
+        });
+        cb_ow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton b, boolean checked) {
+                Arrays.fill(ow_checked, false);
+                cb_ow_verpilzt.setChecked(false);
+                btn_ow_wo.setEnabled(checked);
+                cb_ow_verpilzt.setEnabled(checked);
+            }
+        });
+        cb_ta.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton b, boolean checked) {
+                Arrays.fill(ta_checked, false);
+                btn_ta_wo.setEnabled(checked);
+            }
+        });
 
         // OnClick-Listener für die Körperstellen-Buttons erstellen -> Alert-Dialoge anzeigen + auswerten
         btn_haematom_wo.setOnClickListener(new View.OnClickListener() {
@@ -379,7 +353,7 @@ public class EditFishFragment extends Fragment {
                 if(!complete){return;}
                 if (!newFish){
                     Bundle b = receivedIntent.getExtras();
-                    updateData(rootView,dataSource,b.getInt("pos")+1);
+                    updateData(rootView,dataSource,b.getLong("id"));
                 }
                 else {writeData(rootView,dataSource);}
 
@@ -418,17 +392,6 @@ public class EditFishFragment extends Fragment {
                 cb_ta.setChecked(false);
                 cb_td.setChecked(false);
                 cb_verpilzung.setChecked(false);
-                edit_bemerkung.setText(null);
-
-                /*
-                // neues Fragment (ohne putExtras) erstellen
-                // man müsste das alte hier irgendwie zerstören...
-                receivedIntent.removeExtra("");
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.beginTransaction().remove(actualFragment).commit();
-                Intent editFishIntent = new Intent(getActivity(), EditFishActivity.class);
-                startActivity(editFishIntent);
-                */
             }
         });
 
@@ -505,16 +468,16 @@ public class EditFishFragment extends Fragment {
         dataSource.createFish(f);
     }
 
-    void updateData(View rootView, FishDataSource dataSource, int pos){
+    void updateData(View rootView, FishDataSource dataSource, long id){
         Fish f = getFish(rootView);
-        dataSource.updateFish(pos, f);
+        dataSource.updateFish(id, f);
     }
 
 
     String getStellen(boolean[] checkedPositions, String [] choices){
         String stellen = "";
         boolean first = true;
-        for (int i=0; i<l; i++) {
+        for (int i=0; i<choices.length; i++) {
             if (checkedPositions[i]) {
                 if (first) {stellen = choices[i]; first = false;}
                 else {stellen += ", " + choices[i];}
@@ -524,8 +487,8 @@ public class EditFishFragment extends Fragment {
     }
 
     boolean [] getCheckedPositions(String stellen, String [] choices){
-    boolean [] checkedPositions = new boolean[l];
-    for (int i=0; i<l; i++) {
+    boolean [] checkedPositions = new boolean[choices.length];
+    for (int i=0; i<choices.length; i++) {
         // teste auf Wort an Stelle > 0, Stelle 0 oder falls nur ein Wort enthalten ist
         if (stellen.contains(choices[i]+",") || stellen.contains(" "+choices[i]) || stellen.equals(choices[i])) {
             checkedPositions[i] = true;

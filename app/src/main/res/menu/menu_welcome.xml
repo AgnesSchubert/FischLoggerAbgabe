@@ -21,11 +21,13 @@ tools:context=".WelcomeFragment"
         app:showAsAction="never"
         />
 
+    <!--
     <item
         android:id="@+id/start_action_newSite"
         android:orderInCategory="100"
         android:title="@string/menu.newSite"
         app:showAsAction="never"
         />
+        -->
 
 </menu>

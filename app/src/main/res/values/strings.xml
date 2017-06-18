@@ -69,6 +69,24 @@
     <string name="schaden.bemerkung">Bemerkung</string>
 
     <!-- Körperstellen -->
+    <string-array
+        name="koerperstellen">
+        <item>Bauchflosse</item>
+        <item>Brustflosse</item>
+        <item>Rückenflosse</item>
+        <item>Afterflosse</item>
+        <item>Schwanzflosse</item>
+        <item>Fettflosse</item>
+        <item>Kopf</item>
+        <item>Maul</item>
+        <item>Rücken</item>
+        <item>Bauch</item>
+        <item>linke Seite</item>
+        <item>rechte Seite</item>
+        <item>beide Seiten</item>
+    </string-array>
+
+    <!--
     <string name="koerper.flosse.bauch">Bauchflosse</string>
     <string name="koerper.flosse.brust">Brustflosse</string>
     <string name="koerper.flosse.ruecken">Rückenflosse</string>
@@ -82,8 +100,88 @@
     <string name="koerper.teil.seitelinks">linke Seite</string>
     <string name="koerper.teil.seiterechts">rechte Seite</string>
     <string name="koerper.teil.seitebeide">beide Seiten</string>
+    -->
 
     <!-- Fischarten -->
+    <string-array
+        name="fischarten">
+        <item>Meeresneunauge</item>
+        <item>Flussneunauge</item>
+        <item>Bachneunauge</item>
+        <item>Stör</item>
+        <item>Sterlet</item>
+        <item>Hausen</item>
+        <item>Aal</item>
+        <item>Finte</item>
+        <item>Bachforelle</item>
+        <item>Meerforelle</item>
+        <item>Lachs, atlantischer</item>
+        <item>Huchen</item>
+        <item>Regenbogenforelle</item>
+        <item>Ketalachs</item>
+        <item>Buckellachs</item>
+        <item>Bachsaibling</item>
+        <item>Seesaibling</item>
+        <item>Renke/ Maräne/ Felche</item>
+        <item>Äsche</item>
+        <item>Stint</item>
+        <item>Hecht</item>
+        <item>Hundsfisch</item>
+        <item>Plötze/ Rotauge</item>
+        <item>Frauennerfling/ Pigo</item>
+        <item>Perlfisch/ Schwarzmeer-Plötze</item>
+        <item>Moderlieschen</item>
+        <item>Hasel</item>
+        <item>Döbel/ Aitel</item>
+        <item>Strömer</item>
+        <item>Nerfling/ Orfe</item>
+        <item>Elritze</item>
+        <item>Rotfeder</item>
+        <item>Schied/ Rapfen</item>
+        <item>Nase</item>
+        <item>Mairenke</item>
+        <item>Laube/ Ukelei</item>
+        <item>Schneider</item>
+        <item>Güster/ Blicke</item>
+        <item>Brachsen/ Blei</item>
+        <item>Zobel</item>
+        <item>Zope</item>
+        <item>Russnase/ Zährte</item>
+        <item>Ziege/ Sichling</item>
+        <item>Graskarpfen/ Grasfisch</item>
+        <item>Gründling</item>
+        <item>Steingressling</item>
+        <item>Barbe</item>
+        <item>Schleie</item>
+        <item>Karausche</item>
+        <item>Giebel</item>
+        <item>Karpfen</item>
+        <item>Bitterling</item>
+        <item>Schmerle</item>
+        <item>Schlammpeitzger</item>
+        <item>Steinbeisser</item>
+        <item>Wels</item>
+        <item>Zwergwels, brauner</item>
+        <item>Quappe/ Rutte/ Trüsche</item>
+        <item>Mittelmeer-Kärpfling</item>
+        <item>Gambuse/ Kobold-Kärpfling</item>
+        <item>Ährenfisch, kleiner</item>
+        <item>Stichling, dreistachliger</item>
+        <item>Stichling, neunstachliger/ Zwergstichling</item>
+        <item>Flussbarsch</item>
+        <item>Kaulbarsch</item>
+        <item>Schrätzer</item>
+        <item>Zander</item>
+        <item>Zingel</item>
+        <item>Forellenbarsch</item>
+        <item>Sonnenbarsch</item>
+        <item>Süsswasser-Schleimfisch</item>
+        <item>Marmorgrundel</item>
+        <item>Groppe/ Mühlkoppe</item>
+        <item>Flunder</item>
+    </string-array>
+
+    <!--
     <string name="art.europa.Meeresneunauge">Meeresneunauge</string>
     <string name="art.europa.Flussneunauge">Flussneunauge</string>
     <string name="art.europa.Bachneunauge">Bachneunauge</string>
@@ -158,10 +256,8 @@
     <string name="art.europa.Marmorgrundel">Marmorgrundel</string>
     <string name="art.europa.Groppe">Groppe/ Mühlkoppe</string>
     <string name="art.europa.Flunder">Flunder</string>
-
+    -->
 
     <!-- SQL-DB-Konstanten -->
-
-
 
 </resources>

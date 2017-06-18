@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import android.util.Log;
-
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,13 +20,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
 public class FishViewerFragment extends Fragment {
 
-    public static final String LOG_TAG = FishViewerFragment.class.getSimpleName();
     private FishDataSource dataSource;
     private ArrayAdapter<Fish> fishListAdapter;
 
@@ -50,17 +46,12 @@ public class FishViewerFragment extends Fragment {
         super.onResume();
         final ListView fishViewerListView = (ListView) getActivity().findViewById(R.id.listview_fische);
 
-        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
         dataSource.open();
-
-        Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
         showAllListEntries(fishViewerListView);
     }
 
     public void onPause() {
         super.onPause();
-
-        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();
     }
 
@@ -84,8 +75,12 @@ public class FishViewerFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_fishviewer, container, false);
         final ListView fishViewerListView = (ListView) rootView.findViewById(R.id.listview_fische);
         registerForContextMenu(fishViewerListView);
+        fishViewerListView.setOnItemClickListener(new ListView.OnItemClickListener() {
+            public void onItemClick (AdapterView <?> parent, View v, int selPos, long id){
+                editFish(selPos);
+            }
+        });
 
-        Log.d(LOG_TAG, "Das Datenquellen-Objekt wird angelegt.");
         dataSource = new FishDataSource(getContext());
 
         return rootView;
@@ -106,22 +101,24 @@ public class FishViewerFragment extends Fragment {
         if (id == R.id.fishviewer_context_delete) {
             final ListView fishViewerListView = (ListView) getActivity().findViewById(R.id.listview_fische);
             AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-            //long selID = menuInfo.id;
             int selPos = menuInfo.position;
             Fish f = fishListAdapter.getItem(selPos);
             dataSource.deleteFish(f.getId());
             showAllListEntries(fishViewerListView);
         }else if (id == R.id.fishviewer_context_edit) {
             AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-            //long selID = menuInfo.id;
             int selPos = menuInfo.position;
-            Intent editFishIntent = new Intent(getActivity(), EditFishActivity.class);
-            editFishIntent.putExtras(getBundle(selPos));
-            startActivity(editFishIntent);
+            editFish(selPos);
         }else{
             return false;
         }
         return true;
+    }
+
+    private void editFish(int selPos){
+        Intent editFishIntent = new Intent(getActivity(), EditFishActivity.class);
+        editFishIntent.putExtras(getBundle(selPos));
+        startActivity(editFishIntent);
     }
 
     private void showAllListEntries (ListView Liste) {

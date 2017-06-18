@@ -14,7 +14,6 @@ import java.util.List;
  */
 
 public class FishDataSource {
-    public static final String LOG_TAG = FishDataSource.class.getSimpleName();
 
     private SQLiteDatabase database;
     private FishDbHelper dbHelper;
@@ -42,19 +41,15 @@ public class FishDataSource {
     };
 
     public FishDataSource(Context context) {
-        Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
         dbHelper = new FishDbHelper(context);
     }
 
     public void open() {
-        Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
         database = dbHelper.getWritableDatabase();
-        Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
     }
 
     public void close() {
         dbHelper.close();
-        Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
     public Fish createFish(Fish f) {
@@ -84,7 +79,7 @@ public class FishDataSource {
         return f;
     }
 
-    public void updateFish(int pos, Fish f) {
+    public void updateFish(long id, Fish f) {
         this.open();
         ContentValues values = new ContentValues();
         values.put(FishDbHelper.COLUMN_ART, f.getArt());
@@ -104,9 +99,8 @@ public class FishDataSource {
         values.put(FishDbHelper.COLUMN_TOTALDURCHTRENNUNG, f.getTotaldurchtrennung());
         values.put(FishDbHelper.COLUMN_VERPILZUNG, f.getVerpilzung());
         values.put(FishDbHelper.COLUMN_BEMERKUNG, f.getBemerkung());
-        //values.put(FishDbHelper.COLUMN_DATUM, f.getDatum());
 
-        this.database.update(FishDbHelper.TABLE_FISH_LIST, values, "_id=" + pos, null);
+        this.database.update(FishDbHelper.TABLE_FISH_LIST, values, "_id=" + id, null);
     }
 
     private Fish cursorToFish(Cursor cursor) {
