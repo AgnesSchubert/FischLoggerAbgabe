@@ -193,11 +193,7 @@ public class FishDataSource {
         return fishList;
     }
 
-    public Fish getFish(int pos) {
-        Cursor cursor = database.query(FishDbHelper.TABLE_FISH_LIST,
-                columns, null, null, null, null, null);
-        cursor.moveToPosition(pos);
-        Fish fish = cursorToFish(cursor);
-        return fish;
+    public void deleteFish(long id) {
+        this.database.delete(FishDbHelper.TABLE_FISH_LIST,"_id=" + id, null);
     }
 }

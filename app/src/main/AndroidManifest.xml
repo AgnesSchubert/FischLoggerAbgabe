@@ -31,7 +31,7 @@
         <activity
             android:name=".EditFishActivity"
             android:label="@string/titel.editfish"
-            android:parentActivityName=".WelcomeActivity" >
+            android:parentActivityName=".FishViewerActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.agnes.fischlogger.FishViewerActivity"
@@ -44,7 +44,7 @@
             android:parentActivityName=".WelcomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.agnes.fischlogger.FishViewerActivity"
+                android:value="com.example.agnes.fischlogger.WelcomeActivity"
                 />
         </activity>
 

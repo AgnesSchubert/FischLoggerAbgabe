@@ -87,7 +87,7 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal">
 
-                <RadioButton
+                <com.example.agnes.fischlogger.ToggleRadioButton
                     android:id="@+id/rbtn_bpa_einstg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <RadioButton
+                <com.example.agnes.fischlogger.ToggleRadioButton
                     android:id="@+id/rbtn_bpa_beidstg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal">
 
-                <RadioButton
+                <com.example.agnes.fischlogger.ToggleRadioButton
                     android:id="@+id/rbtn_sv_einstg"
                     android:textAlignment="center"
                     android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <RadioButton
+                <com.example.agnes.fischlogger.ToggleRadioButton
                     android:id="@+id/rbtn_sv_beidstg"
                     android:textAlignment="center"
                     android:layout_width="wrap_content"

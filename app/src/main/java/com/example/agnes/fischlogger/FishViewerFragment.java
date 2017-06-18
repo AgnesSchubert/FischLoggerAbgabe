@@ -30,6 +30,7 @@ public class FishViewerFragment extends Fragment {
 
     public static final String LOG_TAG = FishViewerFragment.class.getSimpleName();
     private FishDataSource dataSource;
+    private ArrayAdapter<Fish> fishListAdapter;
 
     public FishViewerFragment(){
     }
@@ -103,7 +104,13 @@ public class FishViewerFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.fishviewer_context_delete) {
-            Toast.makeText(getContext(), "TEST: löschen", Toast.LENGTH_LONG).show();
+            final ListView fishViewerListView = (ListView) getActivity().findViewById(R.id.listview_fische);
+            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+            //long selID = menuInfo.id;
+            int selPos = menuInfo.position;
+            Fish f = fishListAdapter.getItem(selPos);
+            dataSource.deleteFish(f.getId());
+            showAllListEntries(fishViewerListView);
         }else if (id == R.id.fishviewer_context_edit) {
             AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
             //long selID = menuInfo.id;
@@ -120,7 +127,7 @@ public class FishViewerFragment extends Fragment {
     private void showAllListEntries (ListView Liste) {
         List<Fish> fishList = dataSource.getAllFishes();
 
-        ArrayAdapter<Fish> fishListAdapter = new ArrayAdapter<> (
+        fishListAdapter = new ArrayAdapter<> (
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 fishList);
@@ -131,7 +138,7 @@ public class FishViewerFragment extends Fragment {
     Bundle getBundle(int selPos){
         Bundle b = new Bundle();
 
-        Fish f = dataSource.getFish(selPos);
+        Fish f = fishListAdapter.getItem(selPos);
         b.putString("art",f.getArt());
         b.putDouble("laenge",f.getLaenge());
         b.putBoolean("bpa_eins",f.getBpa()==Seite.ONE);
@@ -151,7 +158,7 @@ public class FishViewerFragment extends Fragment {
         b.putBoolean("td",f.getTotaldurchtrennung());
         b.putBoolean("verpilzung",f.getVerpilzung());
         b.putString("bemerkung",f.getBemerkung());
-        b.putInt("pos",selPos);
+        b.putLong("id",f.getId());
 
         return b;
     }

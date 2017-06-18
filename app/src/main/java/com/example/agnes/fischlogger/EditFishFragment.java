@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -45,6 +46,8 @@ public class EditFishFragment extends Fragment {
 
     public static final String LOG_TAG = EditFishFragment.class.getSimpleName();
     private FishDataSource dataSource;
+
+    private String [] arten = new String[74];
 
     int l = 12;
     private String [] choices = new String[l];
@@ -71,6 +74,81 @@ public class EditFishFragment extends Fragment {
         Log.d(LOG_TAG, "Das Datenquellen-Objekt wird angelegt.");
         dataSource = new FishDataSource(getContext());
 
+        arten[0] = getString(R.string.art_europa_Meeresneunauge);
+        arten[1] = getString(R.string.art_europa_Flussneunauge);
+        arten[2] = getString(R.string.art_europa_Bachneunauge);
+        arten[3] = getString(R.string.art_europa_Stoer);
+        arten[4] = getString(R.string.art_europa_Sterlet);
+        arten[5] = getString(R.string.art_europa_Hausen);
+        arten[6] = getString(R.string.art_europa_Aal);
+        arten[7] = getString(R.string.art_europa_Finte);
+        arten[8] = getString(R.string.art_europa_Bachforelle);
+        arten[9] = getString(R.string.art_europa_Meerforelle);
+        arten[10] = getString(R.string.art_europa_LachsAtlantischer);
+        arten[11] = getString(R.string.art_europa_Huchen);
+        arten[12] = getString(R.string.art_europa_Regenbogenforelle);
+        arten[13] = getString(R.string.art_europa_Ketalachs);
+        arten[14] = getString(R.string.art_europa_Buckellachs);
+        arten[15] = getString(R.string.art_europa_Bachsaibling);
+        arten[16] = getString(R.string.art_europa_Seesaibling);
+        arten[17] = getString(R.string.art_europa_Renke);
+        arten[18] = getString(R.string.art_europa_Aesche);
+        arten[19] = getString(R.string.art_europa_Stint);
+        arten[20] = getString(R.string.art_europa_Hecht);
+        arten[21] = getString(R.string.art_europa_Hundsfisch);
+        arten[22] = getString(R.string.art_europa_Ploetze);
+        arten[23] = getString(R.string.art_europa_Frauennerfling);
+        arten[24] = getString(R.string.art_europa_Perlfisch);
+        arten[25] = getString(R.string.art_europa_Moderlieschen);
+        arten[26] = getString(R.string.art_europa_Hasel);
+        arten[27] = getString(R.string.art_europa_Doebel);
+        arten[28] = getString(R.string.art_europa_Stroemer);
+        arten[29] = getString(R.string.art_europa_Orfe);
+        arten[30] = getString(R.string.art_europa_Elritze);
+        arten[31] = getString(R.string.art_europa_Rotfeder);
+        arten[32] = getString(R.string.art_europa_Rapfen);
+        arten[33] = getString(R.string.art_europa_Nase);
+        arten[34] = getString(R.string.art_europa_Mairenke);
+        arten[35] = getString(R.string.art_europa_Ukelei);
+        arten[36] = getString(R.string.art_europa_Schneider);
+        arten[37] = getString(R.string.art_europa_Guester);
+        arten[38] = getString(R.string.art_europa_Blei);
+        arten[39] = getString(R.string.art_europa_Zobel);
+        arten[40] = getString(R.string.art_europa_Zope);
+        arten[41] = getString(R.string.art_europa_Zaehrte);
+        arten[42] = getString(R.string.art_europa_Ziege);
+        arten[43] = getString(R.string.art_europa_Graskarpfen);
+        arten[44] = getString(R.string.art_europa_Gruendling);
+        arten[45] = getString(R.string.art_europa_Steingressling);
+        arten[46] = getString(R.string.art_europa_Barbe);
+        arten[47] = getString(R.string.art_europa_Schleie);
+        arten[48] = getString(R.string.art_europa_Karausche);
+        arten[49] = getString(R.string.art_europa_Giebel);
+        arten[50] = getString(R.string.art_europa_Karpfen);
+        arten[51] = getString(R.string.art_europa_Bitterling);
+        arten[52] = getString(R.string.art_europa_Schmerle);
+        arten[53] = getString(R.string.art_europa_Schlammpeitzger);
+        arten[54] = getString(R.string.art_europa_Steinbeisser);
+        arten[55] = getString(R.string.art_europa_Wels);
+        arten[56] = getString(R.string.art_europa_ZwergwelsBrauner);
+        arten[57] = getString(R.string.art_europa_Quappe);
+        arten[58] = getString(R.string.art_europa_MittelmeerKaerpfling);
+        arten[59] = getString(R.string.art_europa_KoboldKaerpfling);
+        arten[60] = getString(R.string.art_europa_AehrenfischKleiner);
+        arten[61] = getString(R.string.art_europa_StichlingDreistachliger);
+        arten[62] = getString(R.string.art_europa_StichlingNeunstachliger);
+        arten[63] = getString(R.string.art_europa_Flussbarsch);
+        arten[64] = getString(R.string.art_europa_Kaulbarsch);
+        arten[65] = getString(R.string.art_europa_Schraetzer);
+        arten[66] = getString(R.string.art_europa_Zander);
+        arten[67] = getString(R.string.art_europa_Zingel);
+        arten[68] = getString(R.string.art_europa_Forellenbarsch);
+        arten[69] = getString(R.string.art_europa_Sonnenbarsch);
+        arten[70] = getString(R.string.art_europa_SuesswasserSchleimfisch);
+        arten[71] = getString(R.string.art_europa_Marmorgrundel);
+        arten[72] = getString(R.string.art_europa_Groppe);
+        arten[73] = getString(R.string.art_europa_Flunder);
+
         choices[0] = getString(R.string.koerper_flosse_bauch);
         choices[1] = getString(R.string.koerper_flosse_ruecken);
         choices[2] = getString(R.string.koerper_flosse_after);
@@ -93,6 +171,12 @@ public class EditFishFragment extends Fragment {
         final Button btn_ta_wo = (Button) rootView.findViewById(R.id.btn_ta_wo);
         final Intent receivedIntent = getActivity().getIntent();
 
+        // Autocomplete-Vorschläge für die Fischart
+        ArrayAdapter<String> artenAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_dropdown_item_1line, arten);
+        final AutoCompleteTextView autoComplete_Fisch_art = (AutoCompleteTextView) rootView.findViewById(R.id.autoComplete_fisch_art);
+        autoComplete_Fisch_art.setAdapter(artenAdapter);
+
         // ggf. Daten übernehmen
         if (receivedIntent != null && receivedIntent.getExtras() != null) {
             newFish = false;
@@ -103,7 +187,6 @@ public class EditFishFragment extends Fragment {
             ta_checked = getCheckedPositions(fishData.getString("ta_stelle"),choices);
 
             //Eingabemaske anpassen
-            final AutoCompleteTextView autoComplete_Fisch_art = (AutoCompleteTextView) rootView.findViewById(R.id.autoComplete_fisch_art);
             final EditText edit_fisch_laenge = (EditText) rootView.findViewById(R.id.edit_fisch_laenge);
             final RadioButton rbtn_bpa_einstg = (RadioButton) rootView.findViewById(R.id.rbtn_bpa_einstg);
             final RadioButton rbtn_bpa_beidstg = (RadioButton) rootView.findViewById(R.id.rbtn_bpa_beidstg);
@@ -323,6 +406,7 @@ public class EditFishFragment extends Fragment {
                 final EditText edit_bemerkung = (EditText) rootView.findViewById(R.id.edit_bemerkung);
 
                 autoComplete_Fisch_art.setText(null);
+                autoComplete_Fisch_art.requestFocus();
                 edit_fisch_laenge.setText(null);
                 rbtnGroup_bpa.clearCheck();
                 rbtnGroup_sv.clearCheck();
