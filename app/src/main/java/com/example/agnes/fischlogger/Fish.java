@@ -2,13 +2,12 @@ package com.example.agnes.fischlogger;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by Agnes on 12.06.2017.
  */
 
-public class Fish {
+class Fish {
     private String art;
     private double laenge;
     private Seite bpa;
@@ -30,7 +29,7 @@ public class Fish {
     private Long id;
 
 
-    public Fish(
+    Fish(
             String art,
             double laenge,
             Seite bpa,
@@ -74,49 +73,30 @@ public class Fish {
 
     // Getter & Setter
     public String getArt() {return art;}
-    public void setArt(String art) {this.art = art;}
     public double getLaenge() {return laenge;}
-    public void setLaenge(double laenge) {this.laenge = laenge;}
     public Seite getBpa() {return bpa;}
-    public void setBpa(Seite bpa) {this.bpa = bpa;}
     public Seite getSv() {return sv;}
-    public void setSv(Seite sv) {this.sv = sv;}
     public boolean getHaematom() {return haematom;}
-    public void setHaematom(boolean haematom) {this.haematom = haematom;}
     public String getHaematomStelle() {return heamatom_stelle;}
-    public void setHaematomStelle(String heamatom_stelle) {this.heamatom_stelle = heamatom_stelle;}
     public boolean getSchuerfung() {return schuerfung;}
-    public void setSchuerfung(boolean schuerfung) {this.schuerfung = schuerfung;}
     public String getSchuerfungStelle() {return schuerfung_stelle;}
-    public void setSchuerfungStelle(String schuerfung_stelle) {this.schuerfung_stelle = schuerfung_stelle;}
     public boolean getSchuerfungVerpilzt() {return schuerfung_verpilzt;}
-    public void setSchuerfungVerpilzt(boolean schuerfung_verpilzt) {this.schuerfung_verpilzt = schuerfung_verpilzt;}
     public boolean getOw() {return ow;}
-    public void setOw(boolean ow) {this.ow = ow;}
     public String getOwStelle() {return ow_stelle;}
-    public void setOwStelle(String ow_stelle) {this.ow_stelle = ow_stelle;}
     public boolean getOwVerpilzt() {return ow_verpilzt;}
-    public void setOwVerpilzt(boolean ow_verpilzt) {this.ow_verpilzt = ow_verpilzt;}
     public boolean getTa() {return ta;}
-    public void setTa(boolean ta) {this.ta = ta;}
     public String getTaStelle() {return ta_stelle;}
-    public void setTaStelle(String ta_stelle) {this.ta_stelle = ta_stelle;}
     public boolean getTotaldurchtrennung() {return totaldurchtrennung;}
-    public void setTotaldurchtrennung(boolean totaldurchtrennung) {this.totaldurchtrennung = totaldurchtrennung;}
     public boolean getVerpilzung() {return verpilzung;}
-    public void setVerpilzung(String bemerkung) {this.verpilzung = verpilzung;}
     public String getBemerkung() {return bemerkung;}
-    public void setBemerkung(String bemerkung) {this.bemerkung = bemerkung;}
     public long getDatum() {return datum;}
-    public void setDatum(long datum) {this.datum = datum;}
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
 
     @Override
     public String toString() {
         DateFormat df = new SimpleDateFormat("dd.MM.yy HH:mm");
-        String output = art + " : " + laenge + " (" + df.format(datum) + ")";
-        return output;
+        return art + " : " + laenge + " (" + df.format(datum) + ")";
     }
 
 }

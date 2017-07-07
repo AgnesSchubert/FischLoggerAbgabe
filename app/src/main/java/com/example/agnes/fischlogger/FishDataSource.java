@@ -2,7 +2,6 @@ package com.example.agnes.fischlogger;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -144,7 +143,7 @@ public class FishDataSource {
         long datum = cursor.getLong(idDatum);
         long id = cursor.getLong(idIndex);
 
-        Fish fish = new Fish(art,
+        return new Fish(art,
                 laenge,
                 bpa,
                 sv,
@@ -163,8 +162,6 @@ public class FishDataSource {
                 bemerkung,
                 datum,
                 id);
-
-        return fish;
     }
 
     public List<Fish> getAllFishes() {

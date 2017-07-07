@@ -38,16 +38,6 @@
                 />
         </activity>
 
-        <activity
-            android:name=".NewSiteActivity"
-            android:label="@string/titel.newsite"
-            android:parentActivityName=".WelcomeActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.agnes.fischlogger.WelcomeActivity"
-                />
-        </activity>
-
     </application>
 
 </manifest>

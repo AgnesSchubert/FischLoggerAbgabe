@@ -46,11 +46,6 @@ public class WelcomeFragment extends Fragment{
                 Intent editFishIntent = new Intent(getActivity(), EditFishActivity.class);
                 startActivity(editFishIntent);
                 break;
-            /*
-            case R.id.start_action_newSite:
-                Intent newSiteIntent = new Intent(getActivity(), NewSiteActivity.class);
-                startActivity(newSiteIntent);
-                break;*/
         }
         return super.onOptionsItemSelected(item);
     }

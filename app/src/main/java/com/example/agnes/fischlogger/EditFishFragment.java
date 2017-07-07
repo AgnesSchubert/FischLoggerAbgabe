@@ -26,7 +26,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -36,7 +35,6 @@ public class EditFishFragment extends Fragment {
 
     private FishDataSource dataSource;
 
-    private String [] arten;
     private String [] choices;
 
     private boolean[] haematom_checked;
@@ -63,7 +61,7 @@ public class EditFishFragment extends Fragment {
         final Intent receivedIntent = getActivity().getIntent();
 
         // Fischarten für das Autocomplete-Textfeld
-        arten = getResources().getStringArray(R.array.fischarten);
+        String[] arten = getResources().getStringArray(R.array.fischarten);
 
         // Körperstellen für die Auswahl-AlertDialoge
         choices = getResources().getStringArray(R.array.koerperstellen);
@@ -73,16 +71,12 @@ public class EditFishFragment extends Fragment {
         schuerfung_checked = new boolean[choices.length];
         ow_checked = new boolean[choices.length];
         ta_checked = new boolean[choices.length];
-        /*Arrays.fill(haematom_checked, false);
-        Arrays.fill(schuerfung_checked, false);
-        Arrays.fill(ow_checked, false);
-        Arrays.fill(ta_checked, false);*/
 
         // Formularelemente
         Button btn_editOK = (Button) rootView.findViewById(R.id.btn_editOK);
         Button btn_editNext = (Button) rootView.findViewById(R.id.btn_editNext);
         Button btn_editAbort = (Button) rootView.findViewById(R.id.btn_editAbort);
-        final Button btn_haematom_wo = (Button) rootView.findViewById(R.id.btn_heamatom_wo);
+        final Button btn_haematom_wo = (Button) rootView.findViewById(R.id.btn_haematom_wo);
         final Button btn_schuerfung_wo = (Button) rootView.findViewById(R.id.btn_schuerfung_wo);
         final Button btn_ow_wo = (Button) rootView.findViewById(R.id.btn_ow_wo);
         final Button btn_ta_wo = (Button) rootView.findViewById(R.id.btn_ta_wo);
@@ -334,8 +328,8 @@ public class EditFishFragment extends Fragment {
                 boolean complete = testComplete(rootView);
                 if(!complete){return;}
                 if (!newFish){
-                    Bundle b = receivedIntent.getExtras();
-                    updateData(rootView,dataSource,b.getInt("pos")+1); //warum ist die +1 hier nötig???
+                    Bundle b = receivedIntent.getExtras(); //Nulltest weiter oben
+                    updateData(rootView,dataSource,b.getInt("pos")+1);
                 }
                 else {writeData(rootView,dataSource);}
 
@@ -352,7 +346,7 @@ public class EditFishFragment extends Fragment {
                 boolean complete = testComplete(rootView);
                 if(!complete){return;}
                 if (!newFish){
-                    Bundle b = receivedIntent.getExtras();
+                    Bundle b = receivedIntent.getExtras(); //Nulltest weiter oben
                     updateData(rootView,dataSource,b.getLong("id"));
                 }
                 else {writeData(rootView,dataSource);}
@@ -377,7 +371,6 @@ public class EditFishFragment extends Fragment {
                 final CheckBox cb_ta = (CheckBox) rootView.findViewById(R.id.cb_ta);
                 final CheckBox cb_td = (CheckBox) rootView.findViewById(R.id.cb_td);
                 final CheckBox cb_verpilzung = (CheckBox) rootView.findViewById(R.id.cb_verpilzung);
-                final EditText edit_bemerkung = (EditText) rootView.findViewById(R.id.edit_bemerkung);
 
                 autoComplete_Fisch_art.setText(null);
                 autoComplete_Fisch_art.requestFocus();
@@ -490,11 +483,9 @@ public class EditFishFragment extends Fragment {
     boolean [] checkedPositions = new boolean[choices.length];
     for (int i=0; i<choices.length; i++) {
         // teste auf Wort an Stelle > 0, Stelle 0 oder falls nur ein Wort enthalten ist
-        if (stellen.contains(choices[i]+",") || stellen.contains(" "+choices[i]) || stellen.equals(choices[i])) {
-            checkedPositions[i] = true;
-        } else {
-            checkedPositions[i] = false;
-        }
+        checkedPositions[i] = stellen.contains(choices[i] + ",")
+                                || stellen.contains(" " + choices[i])
+                                || stellen.equals(choices[i]);
     }
     return checkedPositions;
     }

@@ -10,7 +10,7 @@ import android.widget.RadioGroup;
 
 public class ToggleRadioButton extends android.support.v7.widget.AppCompatRadioButton{
     // damit man RadioButtons auch wieder abwählen kann - sodass innerhalb einer RadioGroup keiner ausgewählt ist
-    // (denn diese Situation hat in unserem Formular Bedeutung)
+    // (denn diese Situation hat in unserem Formular Bedeutung - beidseitig/einseitig/gar nicht)
 
     public ToggleRadioButton(Context c) {
             super(c);

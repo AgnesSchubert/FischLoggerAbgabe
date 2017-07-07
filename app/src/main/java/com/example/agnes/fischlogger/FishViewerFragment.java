@@ -103,6 +103,7 @@ public class FishViewerFragment extends Fragment {
             AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
             int selPos = menuInfo.position;
             Fish f = fishListAdapter.getItem(selPos);
+            assert f != null;
             dataSource.deleteFish(f.getId());
             showAllListEntries(fishViewerListView);
         }else if (id == R.id.fishviewer_context_edit) {
@@ -136,6 +137,7 @@ public class FishViewerFragment extends Fragment {
         Bundle b = new Bundle();
 
         Fish f = fishListAdapter.getItem(selPos);
+        assert f != null;
         b.putString("art",f.getArt());
         b.putDouble("laenge",f.getLaenge());
         b.putBoolean("bpa_eins",f.getBpa()==Seite.ONE);
