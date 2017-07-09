@@ -329,7 +329,7 @@ public class EditFishFragment extends Fragment {
                 if(!complete){return;}
                 if (!newFish){
                     Bundle b = receivedIntent.getExtras(); //Nulltest weiter oben
-                    updateData(rootView,dataSource,b.getInt("pos")+1);
+                    updateData(rootView,dataSource,b.getLong("id"));
                 }
                 else {writeData(rootView,dataSource);}
 
