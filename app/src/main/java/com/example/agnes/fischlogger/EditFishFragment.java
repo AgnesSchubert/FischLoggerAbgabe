@@ -51,6 +51,8 @@ public class EditFishFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        app = (FishLogger) this.getActivity().getApplication();
+        dataSource = app.getDataSource();
     }
 
     @Override

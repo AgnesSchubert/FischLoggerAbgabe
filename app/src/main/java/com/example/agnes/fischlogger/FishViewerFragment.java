@@ -4,9 +4,12 @@ package com.example.agnes.fischlogger;
  * Created by Agnes on 10.05.2017.
  */
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -39,7 +42,7 @@ public class FishViewerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         app = (FishLogger) this.getActivity().getApplication();
-        dataSource = (FishDataSource)app.getDataSource();
+        dataSource = app.getDataSource();
     }
 
     @Override
@@ -121,8 +124,9 @@ public class FishViewerFragment extends Fragment {
     }
 
     private void showAllListEntries (ListView Liste) {
-        List<Fish> fishList = dataSource.getAllFishes();
+        //new FishLoader(getActivity());
 
+        List<Fish> fishList = dataSource.getAllFishes();
         fishListAdapter = new ArrayAdapter<> (
                 getActivity(),
                 android.R.layout.simple_list_item_1,
@@ -130,6 +134,31 @@ public class FishViewerFragment extends Fragment {
 
         Liste.setAdapter(fishListAdapter);
     }
+
+    /*private class FishLoader extends AsyncTask<Void,Void,List<Fish>> {
+
+        private Context context;
+        private FishDataSource dataSource;
+        FishLoader(Context context){
+            this.context = context;
+            dataSource = ((FishLogger)context.getApplicationContext()).getDataSource();
+        }
+
+        @Override
+        protected List<Fish> doInBackground(Void... params) {
+            List<Fish> fishList = dataSource.getAllFishes();
+            return fishList;
+        }
+
+        @Override
+        protected void onPostExecute(List<Fish> fishList){
+            fishListAdapter = new ArrayAdapter<> (
+                    (Activity) context,
+                    android.R.layout.simple_list_item_1,
+                    fishList);
+            ((ListView) ((Activity)context).findViewById(R.id.listview_fische)).setAdapter(fishListAdapter);
+        }
+    }*/
 
     Bundle getBundle(int selPos){
         Bundle b = new Bundle();
