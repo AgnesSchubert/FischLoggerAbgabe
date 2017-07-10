@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <fragment
+    android:id="@+id/activity_fishviewer"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment"
     android:name="com.example.agnes.fischlogger.FishViewerFragment"
     tools:layout="@layout/fragment_fishviewer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     />
-    <!-- die android:id muss wohl bei allen fragment.xlm noch geändert werden, oder? -->
