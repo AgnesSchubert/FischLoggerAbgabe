@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <!-- Art-->
         <TextView
@@ -20,18 +23,20 @@
             android:layout_alignBaseline="@+id/autoComplete_fisch_art"
             android:layout_alignBottom="@+id/autoComplete_fisch_art"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            />
 
         <AutoCompleteTextView
             android:id="@+id/autoComplete_fisch_art"
+            android:hint="@string/fisch.art"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:hint="@string/fisch.art"
             android:layout_toRightOf="@+id/txt_schaden"
-            android:layout_toEndOf="@+id/txt_schaden" />
+            android:layout_toEndOf="@+id/txt_schaden"
+            />
 
         <!-- Länge-->
         <TextView
@@ -42,20 +47,22 @@
             android:layout_alignBaseline="@+id/edit_fisch_laenge"
             android:layout_alignBottom="@+id/edit_fisch_laenge"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            />
 
         <EditText
             android:id="@+id/edit_fisch_laenge"
-            android:inputType="numberDecimal"
             android:hint="@string/fisch.laenge"
+            android:inputType="numberDecimal"
+            android:ems="10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/autoComplete_fisch_art"
-            android:ems="10"
             android:layout_toRightOf="@+id/txt_schaden"
-            android:layout_toEndOf="@+id/txt_schaden" />
+            android:layout_toEndOf="@+id/txt_schaden"
+            />
 
         <!-- Schäden-->
         <TextView
@@ -65,7 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/edit_fisch_laenge"/>
+            android:layout_below="@+id/edit_fisch_laenge"
+            />
 
         <!-- Blutpunkte im Auge und Schuppenverluste-->
         <TextView
@@ -75,7 +83,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_fisch_laenge"
             android:layout_toLeftOf="@+id/txt_beidseitig"
-            android:layout_toStartOf="@+id/txt_beidseitig"/>
+            android:layout_toStartOf="@+id/txt_beidseitig"
+            />
 
         <TextView
             android:id="@+id/txt_beidseitig"
@@ -86,7 +95,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginStart="@dimen/horizontal_space"
             android:layout_marginLeft="@dimen/horizontal_space"
-            android:layout_below="@+id/edit_fisch_laenge"/>
+            android:layout_below="@+id/edit_fisch_laenge"
+            />
 
         <!-- Blutpunkte im Auge-->
         <TextView
@@ -97,30 +107,34 @@
             android:layout_marginTop="@dimen/vertical_space"
             android:layout_below="@+id/txt_einseitig"
             android:layout_toLeftOf="@+id/txt_einseitig"
-            android:layout_toStartOf="@+id/txt_einseitig" />
+            android:layout_toStartOf="@+id/txt_einseitig"
+            />
 
         <RadioGroup
             android:id="@+id/rbtnGroup_bpa"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_einseitig"
             android:layout_toEndOf="@+id/txt_bpa"
             android:layout_toRightOf="@+id/txt_bpa"
             android:layout_alignBottom="@+id/txt_bpa"
-            android:gravity="center">
+            >
 
             <com.example.agnes.fischlogger.ToggleRadioButton
                 android:id="@+id/rbtn_bpa_einstg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                />
 
             <com.example.agnes.fischlogger.ToggleRadioButton
                 android:id="@+id/rbtn_bpa_beidstg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/vertical_space"
-                android:layout_marginLeft="@dimen/vertical_space"/>
+                android:layout_marginLeft="@dimen/vertical_space"
+                />
 
         </RadioGroup>
 
@@ -133,256 +147,282 @@
             android:layout_below="@+id/rbtnGroup_bpa"
             android:layout_alignLeft="@+id/txt_bpa"
             android:layout_alignStart="@+id/txt_bpa"
-            android:layout_marginTop="@dimen/vertical_space"/>
+            android:layout_marginTop="@dimen/vertical_space"
+            />
 
         <RadioGroup
             android:id="@+id/rbtnGroup_sv"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rbtnGroup_bpa"
             android:layout_toEndOf="@+id/txt_bpa"
             android:layout_toRightOf="@+id/txt_bpa"
             android:layout_alignBottom="@+id/txt_sv"
-            android:gravity="center">
+            >
 
             <com.example.agnes.fischlogger.ToggleRadioButton
                 android:id="@+id/rbtn_sv_einstg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
 
             <com.example.agnes.fischlogger.ToggleRadioButton
                 android:id="@+id/rbtn_sv_beidstg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/vertical_space"
-                android:layout_marginLeft="@dimen/vertical_space"/>
+                android:layout_marginLeft="@dimen/vertical_space"
+                />
 
         </RadioGroup>
 
         <!-- Trennlinie-->
         <View
             android:id="@+id/horizontal_line"
+            android:background="@color/black"
             android:layout_width="match_parent"
             android:layout_height="1dip"
             android:layout_below="@id/rbtnGroup_sv"
             android:layout_marginTop="@dimen/vertical_space"
             android:layout_marginBottom="@dimen/vertical_space"
-            android:background="@color/black"
             android:layout_toRightOf="@+id/txt_schaden"
-            android:layout_toEndOf="@+id/txt_schaden" />
+            android:layout_toEndOf="@+id/txt_schaden"
+            />
 
         <!-- Hämatom-->
         <CheckBox
             android:id="@+id/cb_haematom"
+            android:text="@string/schaden.haematom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/schaden.haematom"
             android:layout_alignBaseline="@+id/btn_haematom_wo"
             android:layout_alignBottom="@+id/btn_haematom_wo"
             android:layout_toRightOf="@+id/btn_editOK"
             android:layout_toEndOf="@+id/btn_editOK"
             android:layout_marginLeft="@dimen/horizontal_space"
-            android:layout_marginStart="@dimen/horizontal_space" />
+            android:layout_marginStart="@dimen/horizontal_space"
+            />
 
         <TextView
             android:id="@+id/txt_haematom_wo"
+            android:text="@string/schaden.koerperstelle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/schaden.koerperstelle"
             android:layout_alignBaseline="@+id/btn_haematom_wo"
             android:layout_alignBottom="@+id/btn_haematom_wo"
             android:layout_toLeftOf="@+id/btn_haematom_wo"
-            android:layout_toStartOf="@+id/btn_haematom_wo" />
+            android:layout_toStartOf="@+id/btn_haematom_wo"
+            />
 
         <Button
             android:id="@+id/btn_haematom_wo"
+            android:text="@string/action.aendern"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/action.aendern"
             android:layout_below="@+id/horizontal_line"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            />
 
         <!-- Schürfung-->
         <CheckBox
             android:id="@+id/cb_schuerfung"
+            android:text="@string/schaden.schuerfung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/schaden.schuerfung"
             android:layout_alignBaseline="@+id/btn_schuerfung_wo"
             android:layout_alignBottom="@+id/btn_schuerfung_wo"
             android:layout_alignLeft="@+id/cb_haematom"
-            android:layout_alignStart="@+id/cb_haematom" />
+            android:layout_alignStart="@+id/cb_haematom"
+            />
 
         <TextView
             android:id="@+id/txt_schuerfung_wo"
+            android:text="@string/schaden.koerperstelle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/schaden.koerperstelle"
             android:layout_alignBaseline="@+id/btn_schuerfung_wo"
             android:layout_alignBottom="@+id/btn_schuerfung_wo"
             android:layout_toLeftOf="@+id/btn_schuerfung_wo"
-            android:layout_toStartOf="@+id/btn_schuerfung_wo" />
+            android:layout_toStartOf="@+id/btn_schuerfung_wo"
+            />
 
         <Button
             android:id="@+id/btn_schuerfung_wo"
+            android:text="@string/action.aendern"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/btn_haematom_wo"
             android:layout_alignRight="@+id/btn_haematom_wo"
             android:layout_below="@+id/btn_haematom_wo"
-            android:text="@string/action.aendern" />
+            />
 
         <CheckBox
             android:id="@+id/cb_schuerfung_verpilzt"
+            android:text="@string/schaden.verpilzt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_schuerfung_wo"
             android:layout_alignLeft="@+id/btn_schuerfung_wo"
             android:layout_alignStart="@+id/btn_schuerfung_wo"
             android:layoutDirection="rtl"
-            android:text="@string/schaden.verpilzt"/>
+            />
 
         <!-- offene Wunden-->
         <CheckBox
             android:id="@+id/cb_ow"
+            android:text="@string/schaden.ow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/schaden.ow"
             android:layout_alignBaseline="@+id/btn_ow_wo"
             android:layout_alignBottom="@+id/btn_ow_wo"
             android:layout_alignLeft="@+id/cb_schuerfung"
-            android:layout_alignStart="@+id/cb_schuerfung" />
+            android:layout_alignStart="@+id/cb_schuerfung"
+            />
 
         <TextView
             android:id="@+id/txt_ow_wo"
+            android:text="@string/schaden.koerperstelle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/schaden.koerperstelle"
             android:layout_alignBaseline="@+id/btn_ow_wo"
             android:layout_alignBottom="@+id/btn_ow_wo"
             android:layout_toLeftOf="@+id/btn_ow_wo"
-            android:layout_toStartOf="@+id/btn_ow_wo" />
+            android:layout_toStartOf="@+id/btn_ow_wo"
+            />
 
         <Button
             android:id="@+id/btn_ow_wo"
+            android:text="@string/action.aendern"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/cb_schuerfung_verpilzt"
             android:layout_alignStart="@+id/cb_schuerfung_verpilzt"
             android:layout_below="@+id/cb_schuerfung_verpilzt"
-            android:text="@string/action.aendern" />
+            />
 
         <CheckBox
             android:id="@+id/cb_ow_verpilzt"
+            android:text="@string/schaden.verpilzt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/btn_ow_wo"
             android:layout_alignStart="@+id/btn_ow_wo"
             android:layout_below="@+id/btn_ow_wo"
-            android:text="@string/schaden.verpilzt"
-            android:layoutDirection="rtl"/>
+            android:layoutDirection="rtl"
+            />
 
         <!-- Teilamputation-->
         <CheckBox
             android:id="@+id/cb_ta"
+            android:text="@string/schaden.ta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/schaden.ta"
             android:layout_alignBaseline="@+id/btn_ta_wo"
             android:layout_alignBottom="@+id/btn_ta_wo"
             android:layout_alignLeft="@+id/cb_ow"
-            android:layout_alignStart="@+id/cb_ow" />
+            android:layout_alignStart="@+id/cb_ow"
+            />
 
         <TextView
             android:id="@+id/txt_ta_wo"
+            android:text="@string/schaden.koerperstelle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/schaden.koerperstelle"
             android:layout_alignBaseline="@+id/btn_ta_wo"
             android:layout_alignBottom="@+id/btn_ta_wo"
             android:layout_toLeftOf="@+id/btn_ta_wo"
-            android:layout_toStartOf="@+id/btn_ta_wo" />
+            android:layout_toStartOf="@+id/btn_ta_wo"
+            />
 
         <Button
             android:id="@+id/btn_ta_wo"
+            android:text="@string/action.aendern"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/cb_ow_verpilzt"
             android:layout_alignStart="@+id/cb_ow_verpilzt"
             android:layout_below="@+id/cb_ow_verpilzt"
-            android:text="@string/action.aendern" />
+            />
 
         <!-- Totaldurchtrennung-->
         <CheckBox
             android:id="@+id/cb_td"
+            android:text="@string/schaden.durchtrennung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/cb_ta"
             android:layout_alignStart="@+id/cb_ta"
             android:layout_below="@+id/cb_ta"
-            android:text="@string/schaden.durchtrennung" />
+            />
 
         <!-- komplette Verpilzung-->
         <CheckBox
             android:id="@+id/cb_verpilzung"
+            android:text="@string/schaden.verpilzung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/cb_td"
             android:layout_alignStart="@+id/cb_td"
             android:layout_below="@+id/cb_td"
-            android:text="@string/schaden.verpilzung" />
+            />
 
         <!-- Bemerkungen-->
         <EditText
             android:id="@+id/edit_bemerkung"
-            android:inputType="textMultiLine"
             android:hint="@string/schaden.bemerkung"
+            android:inputType="textMultiLine"
+            android:ems="10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/cb_verpilzung"
-            android:ems="10"
             android:layout_toRightOf="@+id/txt_bemerkung"
-            android:layout_toEndOf="@+id/txt_bemerkung" />
+            android:layout_toEndOf="@+id/txt_bemerkung"
+            />
 
         <TextView
             android:id="@+id/txt_bemerkung"
+            android:text="@string/schaden.bemerkung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/cb_verpilzung"
             android:layout_alignBaseline="@id/edit_bemerkung"
-            android:text="@string/schaden.bemerkung" />
+            />
 
     <Button
         android:id="@+id/btn_editOK"
+        android:text="@string/antwort.ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/edit_bemerkung"
-        android:text="@string/antwort.ok" />
+        />
 
     <Button
         android:id="@+id/btn_editNext"
+        android:text="@string/antwort.naechster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/edit_bemerkung"
-        android:text="@string/antwort.naechster" />
+        />
 
     <Button
         android:id="@+id/btn_editAbort"
+        android:text="@string/antwort.abbrechen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_bemerkung"
         android:layout_centerHorizontal="true"
-        android:text="@string/antwort.abbrechen" />
+        />
 
     </RelativeLayout>
 
