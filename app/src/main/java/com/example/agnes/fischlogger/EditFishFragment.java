@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 
 import android.text.TextUtils;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class EditFishFragment extends Fragment {
 
     private boolean newFish = true;
 
+    private FishLogger app;
     private FishDataSource dataSource;
 
     private String [] choices;
@@ -55,8 +57,6 @@ public class EditFishFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_editfish, container, false);
-
-        dataSource = new FishDataSource(getContext());
 
         final Intent receivedIntent = getActivity().getIntent();
 
@@ -488,13 +488,5 @@ public class EditFishFragment extends Fragment {
                                 || stellen.equals(choices[i]);
     }
     return checkedPositions;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        try{dataSource.close();}
-        catch (java.lang.Exception e){}
     }
 }

@@ -4,11 +4,13 @@ package com.example.agnes.fischlogger;
  * Created by Agnes on 10.05.2017.
  */
 
+import android.app.Application;
 import android.content.Intent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +27,7 @@ import java.util.List;
 
 public class FishViewerFragment extends Fragment {
 
+    private FishLogger app;
     private FishDataSource dataSource;
     private ArrayAdapter<Fish> fishListAdapter;
 
@@ -35,6 +38,8 @@ public class FishViewerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        app = (FishLogger) this.getActivity().getApplication();
+        dataSource = (FishDataSource)app.getDataSource();
     }
 
     @Override
@@ -48,11 +53,6 @@ public class FishViewerFragment extends Fragment {
 
         dataSource.open();
         showAllListEntries(fishViewerListView);
-    }
-
-    public void onPause() {
-        super.onPause();
-        dataSource.close();
     }
 
     @Override
@@ -80,8 +80,6 @@ public class FishViewerFragment extends Fragment {
                 editFish(selPos);
             }
         });
-
-        dataSource = new FishDataSource(getContext());
 
         return rootView;
     }
